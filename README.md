@@ -88,7 +88,6 @@ As you can see, it is pretty simple and the results aren't very good, but is rea
 
 ### Usage
 
-Usage:
 ```
 from Data import Unicamp
 from Fun.ML import NB_CF
