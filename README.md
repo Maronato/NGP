@@ -84,7 +84,7 @@ Can be used to predict single grades of a given student.
 * Calculates the weighted average of the `neighbors`'s grades within a selected class using the correlation index calculated above.
 * The result is the prediction.
 
-As you can see, it is pretty simple and the results aren't very good, but is really fast and may be usefull if used in a hybrid system.
+As you can see, it is pretty simple and the results aren't very good, but is really fast and may be useful if used in a hybrid system.
 
 ### Usage
 
