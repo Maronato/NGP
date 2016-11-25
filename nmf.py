@@ -105,9 +105,10 @@ class NMF:
             # benchmarking
             if step % 100 == 0:
                 stop = timeit.default_timer()
-                print(stop - start)
+                print("Computation time: " + str(stop - start))
                 start = timeit.default_timer()
-                print(e, step)
+                print("Current error: " + str(e))
+                print("Current iter: " + str(step))
 
             # if the error is big enough, use ALS
             if e > 1 and alg == 0:
