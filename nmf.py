@@ -43,9 +43,10 @@ class NMF:
         model.get_V()
     '''
 
-    def __init__(self, W=[], H=[]):
+    def __init__(self, W=[], H=[], verbose=0):
         # W and H can be preloaded if you just want to predict grades using
         # a known dataset
+        self.verbose = verbose
         self.W = numpy.array(W)
         self.H = numpy.array(H)
         # if a H was loaded, extract R from it
@@ -103,7 +104,7 @@ class NMF:
                 break
 
             # benchmarking
-            if step % 100 == 0:
+            if step % 100 == 0 and self.verbose != 0:
                 stop = timeit.default_timer()
                 print("Computation time: " + str(stop - start))
                 start = timeit.default_timer()
