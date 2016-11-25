@@ -17,12 +17,12 @@ Calculus 1,Calculus 2,Calculus 3,Calculus 4,Physics 1,Physics 2,Physics 3,Physic
 
 To load the database:
 ```
-from NGP.Data import Unicamp
-data = Unicamp.load()
+from data import unicamp
+data = unicamp.load()
 ```
 `data` has 3 attributes:
 
-`data.dataset`: 2D array with the whole dataset
+`data.data`: 2D array with the whole dataset
 
 `data.H`: the preloaded H-matrix of the data (see NMF)
 
@@ -48,19 +48,20 @@ More details and the maths behind it all can be found within the code
 
 Can be used with preloaded data:
 ```
-from Data import Unicamp
-from Fun.ML import NMF
-u = Unicamp.load()
+from data import unicamp
+from nmf import NMF
+u = unicamp.load()
 model = NMF(u.W, u.H)
 test = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
 model.predict(test)
 ```
 Can also be used with new data(might take a while to fit):
 ```
-from Data import Unicamp
-u = Unicamp.load()
+from data import unicamp
+from nmf import NMF
+u = unicamp.load()
 model = NMF()
-model.fit(u.dataset, 8)
+model.fit(u.data, 8)
 test = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
 model.predict(test)
 ```
@@ -89,13 +90,13 @@ As you can see, it is pretty simple and the results aren't very good, but is rea
 ### Usage
 
 ```
-from Data import Unicamp
-from Fun.ML import NB_CF
-u = Unicamp.load()
+from data import unicamp
+from nmf import NB_CF
+u = unicamp.load()
 model = NB_CF()
 active = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
-model.fit(active, u.dataset)
+model.fit(active, u.data)
 model.predict(0)
 ```
 
-## More to come
+
