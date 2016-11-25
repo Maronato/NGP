@@ -6,6 +6,7 @@ Harvard's CS50 Final Project - Natural Grade Processing - Predicts students' gra
 * Numpy
 * Scipy
 * Pandas
+* Cython
 
 # Data
 The data was collected from various universities in Brazil.
