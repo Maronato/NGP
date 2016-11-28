@@ -1,8 +1,8 @@
-import numpy
+import numpy as np
 from scipy.stats.stats import pearsonr
 import pandas as pd
 from scipy.optimize import nnls
-from NGP.helpers import ALS, cost
+from learning.helpers import ALS, cost
 import timeit
 
 
@@ -47,8 +47,8 @@ class NMF:
         # W and H can be preloaded if you just want to predict grades using
         # a known dataset
         self.verbose = verbose
-        self.W = numpy.array(W)
-        self.H = numpy.array(H)
+        self.W = np.array(W)
+        self.H = np.array(H)
         # if a H was loaded, extract R from it
         if self.H.any():
             self.R = len(self.H)
@@ -77,11 +77,11 @@ class NMF:
         self.gamma = gamma
         self.eC = eC
         self.steps = steps
-        numpy.random.seed(0)
+        np.random.seed(0)
         if not self.W.any():
-            self.W = numpy.random.rand(len(X), R)
+            self.W = np.random.rand(len(X), R)
         if not self.H.any():
-            self.H = numpy.random.rand(R, len(X[0]))
+            self.H = np.random.rand(R, len(X[0]))
 
         # optimization variable to alternate between H and W
         self.alternate = 1
@@ -147,13 +147,13 @@ class NMF:
         # Accept both single and multiple predictions at the same time
         try:
             X[0][0]
-            X = numpy.array(X)
+            X = np.array(X)
         except:
-            X = numpy.array([X])
+            X = np.array([X])
 
         # Initialize W and use the loaded H
-        numpy.random.seed(0)
-        W = numpy.random.rand(len(X), self.R)
+        np.random.seed(0)
+        W = np.random.rand(len(X), self.R)
 
         # Do the same thing as in fit(), but only approximate for W
         for step in range(steps):
@@ -164,11 +164,11 @@ class NMF:
                 break
 
         # return the predicted matrix
-        return numpy.dot(W, self.H)
+        return np.dot(W, self.H)
 
     def get_V(self):
         # Get the whole fitted matrix (V = WH ≃ X)
-        return numpy.dot(self.W, self.H)
+        return np.dot(self.W, self.H)
 
     def ANLS(self, X, e):
         '''
@@ -247,11 +247,11 @@ class NB_CF():
 
         def n_mean(user):
             # returns the mean of the user's grades(only the ones > 0)
-            return numpy.array([x for x in user[:-1] if x > 0]).mean()
+            return np.array([x for x in user[:-1] if x > 0]).mean()
 
         def sum_W(neighbors):
             # sum of the neighbors' correlations
-            return numpy.array([x[-1] for x in neighbors]).sum()
+            return np.array([x[-1] for x in neighbors]).sum()
 
         def weighted_avg(neighbor, item):
             # weighted average grade of a given neighbor
@@ -294,7 +294,7 @@ class NB_CF():
             # calculate the correlation
             new_corr = pearsonr(active_items, user_items)
             # if there are too few items in commom, or if the correlation is NaN, set it as 0
-            if len(active_items) <= 1 or numpy.isnan(new_corr[0]):
+            if len(active_items) <= 1 or np.isnan(new_corr[0]):
                 new_corr = 0, 1
 
             # append the correlation to the list
