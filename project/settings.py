@@ -27,7 +27,7 @@ SECRET_KEY = str(os.environ.get('DJANGO_SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["gradeprocessing.herokuapp.com", "localhost"]
 
 
 # Application definition
