@@ -1,0 +1,8 @@
+{
+  "name": "Natural Grade Processing",
+  "description": "",
+  "image": "",
+  "repository": "https://github.com/Maronato/NGP",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}
