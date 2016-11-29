@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # C extensions
-*.so
+
 
 # Distribution / packaging
 .Python
@@ -69,6 +69,7 @@ target/
 
 # IPython Notebook
 .ipynb_checkpoints
+*.ipynb
 
 # pyenv
 .python-version
