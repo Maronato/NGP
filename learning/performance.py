@@ -14,7 +14,7 @@ def full_test(percentage, data=unicamp.load().data):
     print("Creating test set.")
     test = create_test(test)
 
-    for n in range(1, 16):
+    for n in range(2,11):
         perc, error = run(percentage, n, data, test)
         features.append([n, perc, error])
 
