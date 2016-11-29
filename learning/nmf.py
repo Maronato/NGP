@@ -6,6 +6,7 @@ from learning.helpers import ALS, cost
 import timeit
 
 
+
 class NMF:
     '''
         non-negative matrix factorization to predict grades
