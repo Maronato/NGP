@@ -96,7 +96,6 @@ class NMF:
 
         # iterates 'steps' times or until cost < eC
         for step in range(self.steps):
-
             # calculates the cost (i.e., the distance between WH and X)
             e = cost(X, self.W, self.H, self.beta, self.gamma, self.R)
 
@@ -114,7 +113,7 @@ class NMF:
                 print("Current iter: " + str(step))
 
             # if the error is big enough, use ALS
-            if e > 1 and alg == 0:
+            if e > eC and alg == 0:
 
                 # alternate is used inside ALS to choose between computations of W or H
                 if self.alternate == 1:
