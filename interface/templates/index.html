@@ -17,23 +17,23 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center">5</td>
-                    <td class="text-center">3</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
                     <td class="text-center">1</td>
-                    <td class="text-center">4</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">3</td>
                 </tr>
                 <tr>
-                    <td class="text-center">3</td>
+                    <td class="text-center">1</td>
                     <td class="text-center">2</td>
                     <td class="text-center">0</td>
                 </tr>
                 <tr>
                     <td class="text-center">3</td>
-                    <td class="text-center">2</td>
+                    <td class="text-center">4</td>
+                    <td class="text-center">5</td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td class="text-center">5</td>
                     <td class="text-center">0</td>
                 </tr>
             </tbody>
@@ -129,7 +129,7 @@
 <script>
     $('#table').editableTableWidget();
     $('table td').on('validate', function(evt, newValue) {
-        if (newValue > 5 || isNaN(newValue) || newValue < 0 || newValue == "") {
+        if (newValue > 10 || isNaN(newValue) || newValue < 0 || newValue == "") {
             return false; // mark cell as invalid
         };
     });
