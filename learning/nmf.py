@@ -194,7 +194,6 @@ class NMF:
 
 
 class NB_CF():
-
     '''
         This is pretty much useless with my dataset
         but was easy to make, so why not
