@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^stats/', views.stats, name='stats'),
     url(r'^info/', views.info, name='info'),
     url(r'^docs/', views.docs, name='docs'),
+    url(r'^fit-predict/', views.fit_predict, name='fit-predict')
 ]
