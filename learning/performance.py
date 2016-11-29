@@ -4,12 +4,18 @@ import timeit
 import random
 
 
-def full_test(percentage, data):
+def full_test(percentage, data=unicamp.load().data):
 
     features = []
 
+    perc = percentage / 100
+    n_train = int(len(data) * (1 - perc))
+    test = data[n_train:]
+    print("Creating test set.")
+    test = create_test(test)
+
     for n in range(1, 16):
-        perc, error = run(percentage, n, data)
+        perc, error = run(percentage, n, data, test)
         features.append([n, perc, error])
 
     print()
@@ -18,12 +24,11 @@ def full_test(percentage, data):
     return features
 
 
-def run(percentage, R=12, uni=unicamp.load().data):
+def run(percentage, R=12, uni=unicamp.load().data, test=[]):
     percentage = percentage / 100
     n_train = int(len(uni) * (1 - percentage))
     n_test = len(uni) - n_train
     train = uni[: n_train]
-    test = uni[n_train:]
     print()
     print("Training with " + str(n_train) + " elements, " + str(R) + " features.")
     nmf = NMF()
@@ -33,8 +38,6 @@ def run(percentage, R=12, uni=unicamp.load().data):
     print()
     print("Took " + str(stop - start) + " seconds.")
     print("Fit error: " + str(nmf.error_fit))
-    print("Creating test set.")
-    test = create_test(test)
     print()
     errors = 0
     print("Starting test.")
