@@ -18,6 +18,9 @@ def info(request):
 def docs(request):
     return render(request, 'docs.html')
 
+def example(request):
+    return render(request, 'example.html')
+
 def fit_predict(request):
     import json
     from operator import itemgetter
@@ -26,7 +29,7 @@ def fit_predict(request):
     eC = float(request.POST['eC'])
     matrix = []
     for row in raw:
-        l = [float(x[1]) for x in sorted(row.items(), key=lambda s: s[0])]
+        l = [float(x[1]) for x in sorted(row.items(), key=lambda s: s[0]) if x[1].isnumeric()]
         matrix.append(l)
     matrix = np.array(matrix)
     model = NMF()
