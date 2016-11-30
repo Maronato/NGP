@@ -4,73 +4,175 @@
 <script src="{% static 'js/tabletojson.js'%}"></script>
 <script src="{% static 'js/update_table.js'%}"></script>
 <div class="container">
-    <h1> Index </h1>
+    <h1> NGP </h1>
+    <h3> Motivation </h3>
+    <p>
+        Timmy is a student in a school. He took some classes but didn't take others. Bob is another student that, like Timmy, took some, but not all classes. They both really like math, but are not so good at history and english,
+        so their grades usually are proportional to their interests.
+        <br> Some of the classes that Timmy took, Bob also took and got similar grades to those of Timmy's, as one would expect.
+    </p>
+    <p>
+        If you, a human, look at their grades and interests you might think that, since Timmy and Bob seem to follow the same patterns, their grades should too, and indeed they do!
+        <br> Following this train of thought, we have Marle: another student like Bob and Timmy but she is pretty good at english and not so much with maths. Her grades probably won't follow the same patterns as Timmy's but could follow the same as John's,
+        who has similar grades to her.
+    </p>
+    <p>
+        It's pretty easy to understand that there must be some kind of relationship between these students' grades but is only so because we are oversimplifying things.
+        <br>
+        <br> Take hundreds of students and dozens of classes and the relations start to no longer appear so obvious.
+    </p>
+    <p>
+        But they still exist!
+        <br> The only problem is that they are too complicated for us, humans, to understand, but not for a computer!
+    </p>
+    <h3>How does it work?</h3>
+    <p>
+        Like I said, the relations still exist and we can use computers to find and analyze them. One way of doing that is using a technique called Non-Negative Matrix Factorization(NMF) in which we take a matrix <code>X</code> and factorize it into two
+        other matrices, <code>W</code> and <code>H</code> that when multiplied(dot product) get us a resulting matrix <code>V</code> that is very similar to <code>X</code>.
+    </p>
+    <p>
+        The difference is that while <code>X</code> had missing data due to the students not taking the courses, <code>V</code> has everything filled in, and those filled-in grades are the actual predictions.
+    </p>
+    <h3>What are <code>W</code> and <code>H</code>?</h3>
+    <p>
+        When factorizing <code>X</code>, we need to specify an amount of features(
+        <code>R</code>) that we think are hidden within the data. This number can be any positive integer that is smaller than either axis of <code>X</code>.
+        <br>
+        <code>R</code> is very close to the heart of NMF, so choose it carefully!
+        <br> If uncertain, use <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)" target="_blank">
+        Cross Validation</a> to figure out the best value of <code>R</code> for your specific data.
+        <br>
+        <br> Now that we know about <code>R</code> we can start to talk about <code>H</code> and <code>W</code>:
+        <br>
+        <code>H</code> is what we call the <b>features</b> matrix. It represents the relationship between each of the <code>R</code> features and the qualities of the data. In our case, it represents the relationship between the features and the courses.
+        More about that specific study on <a href="/stats">statistics</a>.
+        <br>
+        <br>
+        <code>W</code> is what we call the <b>weights</b> matrix. It represents the relationship between the instances of our data and the <code>R</code> features.
+        <br> In our case, it represents the relationship between the features and the students.
+    </p>
+    <p>
+        So, in our case, we should see Timmy's and Bob's weights higher on features that closely relate to maths and lower on features that relate to english.
+        <br> The opposite should be true for Marle and John.
+    </p>
+    <hr>
+    <h1>Try it!</h1>
+    <p>
+        Bellow is an interactive demonstration of the algorithm that you can fiddle with. Read the next section if you want some insights on what is happening, or just go straight ahead if you can't wait!
+    </p>
+    <h3>Understanding the example</h3>
+    <p>
+        The <code>X</code> matrix is completely editable. You can put any positive integers smaller than 10 and generate real-time predictions for them.
+        <br>
+        <b>Stick to the default values for now</b>, though.
+    </p>
+    <p>
+        You'll see that there are already some values filled-in.
+        <br> More specifically, you'll see that they follow a clear pattern in which the <b>columns are in ascending order</b>.
+    </p>
+    <p>
+        For us, humans, is very simple to predict what the zeros should be, but what about for a computer?
+    </p>
+    <h4>Warming up</h4>
+    <p>
+        Start by generating a prediction with all the default values, then come back here.
+    </p>
+    <p>
+        Not so good, huh? The previous values are OK, but the predictions are pretty bad.
+        <br>
+        <i>Side note: You can take a look at the <code>W</code> and <code>H</code>
+      bellow! Notice how they change in between steps.</i>
+    </p>
+    <h4>Changing things</h4>
+    <p>
+        Now we talk a little more about the importance of <code>R</code>.
+        <br> As you may have noticed, the selector <i>"Number of Features"</i> is actually
+        <code>R</code>. So let's try setting <code>R</code> as <b>2</b> instead of 1 this time.
+    </p>
+    <p>
+        A little better, right? Not quite where we want, though.
+        <br> Can we make it better? You bet!
+    </p>
+    <h4>Making it better</h4>
+    <p>
+        Another selector available to you is the "Minimum error".
+        <br> This tells the algorithm when it should stop trying to make the prediction better. You can make is be pretty low, but the lower it is, the longer it'll take to generate <code>V</code>, and it might not even generate good predictions if
+        <code>R</code> is not the right one.
+    </p>
+    <p>
+        So, let's try to change the <b>error selector to 0.01</b> and keep <code>R</code> as <b>2</b>.
+        <br> You can go lower, but this should be enough
+    </p>
+    <p>
+        That's much better, huh? <b>~1%</b> error on the prediction is not too bad!
+    </p>
+
     <div class="row">
-    <div class="col-md-6">
-        <table id="table" class="table">
-            <thead class="thead-inverse">
-                <tr>
-                    <th class="text-center">X[0]</th>
-                    <th class="text-center">X[1]</th>
-                    <th class="text-center">X[2]</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">2</td>
-                    <td class="text-center">3</td>
-                </tr>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">2</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">5</td>
-                </tr>
-                <tr>
-                    <td class="text-center">4</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">0</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="col-md-6">
+            <table id="table" class="table">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">X[0]</th>
+                        <th class="text-center">X[1]</th>
+                        <th class="text-center">X[2]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">3</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td class="text-center">4</td>
+                        <td class="text-center">5</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">4</td>
+                        <td class="text-center">5</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th colspan="5" class="text-center">Predicted values</th>
+                    </tr>
+                </thead>
+                <tbody id="PredTable">
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="col-md-6">
-        <table class="table">
-            <thead class="thead-inverse">
-                <tr>
-                    <th colspan="5" class="text-center">Predicted values</th>
-                </tr>
-            </thead>
-            <tbody id="PredTable">
-                <tr>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-  </div>
     <div class="col-md-6">
         <table class="table">
             <thead class="thead-inverse">
@@ -111,11 +213,11 @@
             <div class="form-group">
                 <label for="eC">Minimum error:</label>
                 <select class="form-control" id="eC">
-                  <option>1</option>
                   <option>0.1</option>
                   <option>0.01</option>
                   <option>0.001</option>
                   <option>0.0001</option>
+                  <option>0.00001</option>
                 </select>
             </div>
         </div>
@@ -126,6 +228,7 @@
 
 </div>
 </div>
+<br><br><br><br><br><br><br>
 <script>
     $('#table').editableTableWidget();
     $('table td').on('validate', function(evt, newValue) {
