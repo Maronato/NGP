@@ -17,9 +17,9 @@
         who has similar grades to her.
     </p>
     <p>
-        It's pretty easy to understand that there must be some kind of relationship between these students' grades but is only so because we are oversimplifying things.
+        It's pretty easy to understand that there must be some kind of relationship between these students' grades, and even predict some of them, but we can only do that because we are oversimplifying things.
         <br>
-        <br> Take hundreds of students and dozens of classes and the relations start to no longer appear so obvious.
+        <br> Take hundreds of students and dozens of classes and the relations start to no longer appear to be so obvious.
     </p>
     <p>
         But they still exist!
@@ -28,7 +28,7 @@
     <h3>How does it work?</h3>
     <p>
         Like I said, the relations still exist and we can use computers to find and analyze them. One way of doing that is using a technique called Non-Negative Matrix Factorization(NMF) in which we take a matrix <code>X</code> and factorize it into two
-        other matrices, <code>W</code> and <code>H</code> that when multiplied(dot product) get us a resulting matrix <code>V</code> that is very similar to <code>X</code>.
+        other matrices, <code>W</code> and <code>H</code> that when multiplied(dot product) generate a resulting matrix <code>V</code> that is very similar to <code>X</code>.
     </p>
     <p>
         The difference is that while <code>X</code> had missing data due to the students not taking the courses, <code>V</code> has everything filled in, and those filled-in grades are the actual predictions.
@@ -36,7 +36,7 @@
     <h3>What are <code>W</code> and <code>H</code>?</h3>
     <p>
         When factorizing <code>X</code>, we need to specify an amount of features(
-        <code>R</code>) that we think are hidden within the data. This number can be any positive integer that is smaller than either axis of <code>X</code>.
+        <code>R</code>) that we think are hidden within the data. This number can be any positive integer that is smaller than either axes of <code>X</code>.
         <br>
         <code>R</code> is very close to the heart of NMF, so choose it carefully!
         <br> If uncertain, use <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)" target="_blank">
@@ -52,7 +52,7 @@
         <br> In our case, it represents the relationship between the features and the students.
     </p>
     <p>
-        So, in our case, we should see Timmy's and Bob's weights higher on features that closely relate to maths and lower on features that relate to english.
+        So we should see Timmy's and Bob's weights being higher on features that closely relate to maths and lower on features that relate to english.
         <br> The opposite should be true for Marle and John.
     </p>
     <hr>
@@ -80,7 +80,7 @@
     <p>
         Not so good, huh? The previous values are OK, but the predictions are pretty bad.
         <br>
-        <i>Side note: You can take a look at the <code>W</code> and <code>H</code>
+        <i>Side note: You can take a look at <code>W</code> and <code>H</code>
       bellow! Notice how they change in between steps.</i>
     </p>
     <h4>Changing things</h4>
@@ -96,7 +96,7 @@
     <h4>Making it better</h4>
     <p>
         Another selector available to you is the "Minimum error".
-        <br> This tells the algorithm when it should stop trying to make the prediction better. You can make is be pretty low, but the lower it is, the longer it'll take to generate <code>V</code>, and it might not even generate good predictions if
+        <br> This tells the algorithm when it should stop trying to make the prediction better. You can make it be pretty low, but the lower it is, the longer it'll take to generate <code>V</code>, and it might not even generate good predictions if
         <code>R</code> is not the right one.
     </p>
     <p>
@@ -106,7 +106,9 @@
     <p>
         That's much better, huh? <b>~1%</b> error on the prediction is not too bad!
     </p>
-
+    <br>
+    <hr>
+    <br>
     <div class="row">
         <div class="col-md-6">
             <table id="table" class="table">
