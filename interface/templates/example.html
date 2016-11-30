@@ -1,0 +1,180 @@
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="{% static 'js/editableTableWidget.js'%}"></script>
+<script src="{% static 'js/tabletojson.js'%}"></script>
+<script src="{% static 'js/update_table.js'%}"></script>
+<div class="container">
+    <h1> More Examples </h1>
+    <div class="row">
+        <div class="col-md-6">
+            <table id="table" class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">Student</th>
+                        <th class="text-center">English</th>
+                        <th class="text-center">History</th>
+                        <th class="text-center">Maths</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">Timmy</th>
+                        <td class="text-center">2</td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">8</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">Bob</th>
+                        <td class="text-center">3</td>
+                        <td class="text-center">4</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">Marle</th>
+                        <td class="text-center">8</td>
+                        <td class="text-center">7</td>
+                        <td class="text-center">3</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-center">John</th>
+                        <td class="text-center">7</td>
+                        <td class="text-center">6</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th colspan="5" class="text-center">Predicted values</th>
+                    </tr>
+                    <tr id="PHead">
+                    </tr>
+                </thead>
+                <tbody id="PredTable">
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th colspan="5" class="text-center">Table W (Weights)</th>
+                    </tr>
+                    <tr id="WHead">
+                    </tr>
+                </thead>
+                <tbody id="WTable">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th colspan="5" class="text-center">Table H (Features)</th>
+                    </tr>
+                    <tr id="HHead">
+                    </tr>
+                </thead>
+                <tbody id="HTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+    <h2> Overview </h2>
+    <p>
+        Following the examples presented at the beginning of the <a href="/">Motivation</a> text, let's analyze the tables above.
+    </p>
+    <p>
+        As you can see, we are predicting the Math grades of both Bob and John, and they got pretty much what we'd expect.
+        <br> Bob, who thinks very similarly to Timmy, got a good grade, and John, who thinks similarly to Marle, got a bad one  .
+    </p>
+    <p>
+        How come?
+        <br> In our <a href="/#example">previous example</a> the algorithm was only able to predict a simple pattern, but now it seems to be doing something else.
+    </p>
+    <h2> Going deeper </h2>
+    <p>
+        To understand how to algorithm "thinks", lets look at <code>H</code> and <code>W</code>.
+    </p>
+    <p>
+        Let's start with <code>H</code>:
+        <br> As you can see, the algorithm found 2 features within the data, and looking at the values we see something interesting.
+        <br>
+        <b>Feature 0 has a much higher value for English and History than for Math</b>! This means that Feature 0 must represent the relationship between English and History, which is pretty high in our data.
+        <br>
+        <br> On the other hand, <b>Feature 1 has a much higher value for Math</b>! Likewise with Feature 0, Feature 1 must represent the relationship between Math and the other courses.
+        <br> We can even see that Math has a little correlation with History as well. Who'd've thought!
+        <br>
+        <br>
+    </p>
+    <p>
+        Now let's take a look at <code>W</code>:
+        <br> Knowing what each feature represents, we can better understand what each of <code>W</code>'s rows means.
+        <br>
+        <br> For instance, we can look at Timmy's row and guess, without looking at his grades, that he must be very good at Math, but no so good at History nor English.
+        <br>
+        We know this because Feature 1's weight is much higher than Feature 0's in his row.
+        <br> The inverse can be said about Marle and John, showing that they must be very good at History and English but not so good at Math.
+    </p>
+    <h3>So?</h3>
+    <p>
+        What the algorithm, and we, did is a fundamental part of data analysis called <a href="https://en.wikipedia.org/wiki/Feature_extraction" target="_blank">Feature Extraction</a> and, although this is a very simplified database, the process of extracting
+        analyzing more complex and relevant data follows a very similar rationale.
+    </p>
+    <p>
+        Using the same algorithm we can <a href="http://blog.echen.me/2011/10/24/winning-the-netflix-prize-a-summary/" target="_blank">recommend movies</a> that the user most certainly is going to enjoy watching; we can <a href="http://www.cvc.uab.cat/~jordi/FinalCCIA2002.pdf" target="_blank">recognize faces</a> in an image; we can <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.117.2293&rep=rep1&type=pdf" target="_blank">cluster documents</a> and do <a href="http://bioinformatics.oxfordjournals.org/content/21/21/3970.short" target="_blank">so</a> <a href="http://bioinformatics.oxfordjournals.org/content/28/18/2304.short" target="_blank">much</a> <a href="https://scholar.google.com/scholar?q=matrix+factorization+scholar&hl=en" target="_blank">more</a>!
+</div>
+</div>
+<br><br><br><br><br><br><br>
+<script>
+    $(document).ready(function() {
+        var table = $('#table').tableToJSON();
+        var features = 2
+        var eC = 0.001
+        data = {
+            "data": JSON.stringify(table),
+            "R": features,
+            "eC": eC,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+        $.ajax({
+            type: "POST",
+            url: "/fit-predict/",
+            data: data,
+            success: function(resp) {
+                update_table("#PredTable", resp['data'], features);
+                update_table("#HTable", resp['H'], features);
+                update_table("#WTable", resp['W'], features);
+            },
+            dataType: "json"
+        });
+    });
+</script>
+{% endblock %}
