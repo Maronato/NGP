@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+<div class="col-md-8 col-md-offset-2">
+<h1>
+    The Math used
+</h1>
+<h3>
+    Disclaimer
+</h3>
+<p>
+    The math that I used is based of the amazing works of <a href="https://arxiv.org/pdf/1401.5226v1.pdf">Nicolas Gillis</a>, <a href="http://www.prem-melville.com/publications/recommender-systems-eml2010.pdf">Prem Melville, Vikas Sindhwani</a> and <a href="http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/">Albert Au Yeung</a>.
+    <br>
+    All I did was take some ideas from their papers and mix and match techniques untill I figured what gives the best results with <a href="https://github.com/Maronato/NGP/blob/master/data/Original.csv" target="_blank">my dataset</a>(<a href="https://github.com/Maronato/NGP/blob/master/data/cleaned_Unicamp.csv">cleaned version</a>).
+</p>
+<h3>
+    About the dataset
+</h3>
+<p>
+    As you can see from the links above, the dataset is very sparse. I got it from students from the <a href="https://en.wikipedia.org/wiki/University_of_Campinas" target="_blank">University of Campinas</a> using a very simple form from Google Forms. The results probably would`ve been a lot better if I used a bigger and nicer dataset, but those aren't very easy to come by, especially in the format that I expected.
+</p>
+<h3>
+    Design choices
+</h3>
+
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+</div>
+{% endblock %}
