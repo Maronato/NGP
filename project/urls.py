@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^info/', views.info, name='info'),
     url(r'^docs/', views.docs, name='docs'),
     url(r'^example/', views.example, name='example'),
+    url(r'^math/', views.math, name='math'),
     url(r'^fit-predict/', views.fit_predict, name='fit-predict'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     url(r'^humans\.txt$', TemplateView.as_view(template_name='humans.txt', content_type='text/plain')),
