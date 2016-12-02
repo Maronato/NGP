@@ -41,7 +41,7 @@ def fit_predict(request):
         matrix.append(cleaned_row)
     matrix = np.array(matrix)
     model = NMF()
-    model.fit(matrix, R, eC=eC)
+    model.fit(matrix, R, eC=eC, alg=1)
     return JsonResponse({
         'data': model.get_V().tolist(),
         'W': model.W.tolist(),
