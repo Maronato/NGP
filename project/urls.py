@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
     url(r'^stats/', views.stats, name='stats'),
-    url(r'^info/', views.info, name='info'),
+    url(r'^info/', views.math, name='info'),
     url(r'^docs/', views.docs, name='docs'),
     url(r'^example/', views.example, name='example'),
     url(r'^math/', views.math, name='math'),
