@@ -9,7 +9,7 @@ DTYPE = np.double
 ctypedef np.double_t DTYPE_t
 
 
-def ALS(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):
+def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):
     '''
         Not quite ALS, but uses the idea of alternating between evaluations of W and H
         https://arxiv.org/pdf/1401.5226v1.pdf
