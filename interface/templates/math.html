@@ -1,33 +1,239 @@
 {% extends "base.html" %} {% load staticfiles %} {% block content %}
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 </script>
-<div class="col-md-8 col-md-offset-2">
-<h1>
-    The Math used
+<div class="container">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>
+    About it all
 </h1>
-<h3>
+        <h3>
     Disclaimer
 </h3>
-<p>
-    The math that I used is based of the amazing works of <a href="https://arxiv.org/pdf/1401.5226v1.pdf">Nicolas Gillis</a>, <a href="http://www.prem-melville.com/publications/recommender-systems-eml2010.pdf">Prem Melville, Vikas Sindhwani</a> and <a href="http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/">Albert Au Yeung</a>.
-    <br>
-    All I did was take some ideas from their papers and mix and match techniques untill I figured what gives the best results with <a href="https://github.com/Maronato/NGP/blob/master/data/Original.csv" target="_blank">my dataset</a>(<a href="https://github.com/Maronato/NGP/blob/master/data/cleaned_Unicamp.csv">cleaned version</a>).
-</p>
-<h3>
+        <p>
+            The math that I used is based off the amazing works of <a href="https://arxiv.org/pdf/1401.5226v1.pdf">Nicolas Gillis</a>, <a href="http://www.prem-melville.com/publications/recommender-systems-eml2010.pdf">Prem Melville, Vikas Sindhwani</a>,
+            <a href="http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/">Albert Au Yeung</a>, <a href="https://papers.nips.cc/paper/1861-algorithms-for-non-negative-matrix-factorization.pdf">Daniel D. Lee and H. Sebastian Seung</a>.
+            <br> All I did was take some ideas from their papers and mix and match techniques until I figured what gives the best results with <a href="https://github.com/Maronato/NGP/blob/master/data/Original.csv" target="_blank">my dataset</a>(<a href="https://github.com/Maronato/NGP/blob/master/data/cleaned_Unicamp.csv">cleaned version</a>).
+        </p>
+        <h3>
     About the dataset
 </h3>
-<p>
-    As you can see from the links above, the dataset is very sparse. I got it from students from the <a href="https://en.wikipedia.org/wiki/University_of_Campinas" target="_blank">University of Campinas</a> using a very simple form from Google Forms. The results probably would`ve been a lot better if I used a bigger and nicer dataset, but those aren't very easy to come by, especially in the format that I expected.
-</p>
-<h3>
+        <p>
+            As you can see from the links above, the dataset is very sparse. I got it from students from the <a href="https://en.wikipedia.org/wiki/University_of_Campinas" target="_blank">University of Campinas</a> using a very simple form from Google
+            Forms. The results probably would've been a lot better if I used a bigger and nicer dataset, but those aren't very easy to come by, especially in the format that I expected.
+        </p>
+        <h3>
     Design choices
 </h3>
+        <p>
+            When deciding how to approach the problem of predicting grades, I thought to myself: "Predicting grades is nothing more than selecting a value that best fits a user, right?" The user gives you some of their grades and you choose, based on their grades
+            and the grades of others, the best one.
+            <br> That is very similar to how a Netflix predicts movie scores, even before you watch them. Reading a little bit about how Netflix <a href="https://www.techdirt.com/blog/innovation/articles/20120409/03412518422/why-netflix-never-implemented-algorithm-that-won-netflix-1-million-challenge.shtml">does its thing</a>,
+            I decided to learn about Matrix Factorization(MF or NMF for the Non-Negative variant) and how to implement it as an unsupervised learning algorithm.
+        </p>
+        <p>
+            I really like the idea of machine learning, but I barely know anything really deep about it, so I took this as an opportunity to get my feet wet.
+        </p>
+        <p>
+            I started by reading a <a href="http://www.columbia.edu/~jwp2128/Teaching/W4721/papers/ieeecomputer.pdf">lot</a> <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.173.2797&rep=rep1&type=pdf">of</a> <a href="http://www.slideshare.net/studentalei/matrix-factorization-techniques-for-recommender-systems">papers</a>            and documents on MF. After a while, I realized that the idea behind it is actually very simple.
+        </p>
+        <p>
+            I know that SKLearn has a very good <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">NMF module</a>, but more than just implement something that worked, I wanted to <i>understand</i> how it really
+            works. What's the fun in using black boxes for everything?.
+        </p>
+        <p>
+            I decided to include the algorithms inside a class, very similar to what SKLearn does, so that one could easily initialize, fit and predict values with simple methods.
+            <br>
+            More details can be found within the <a href="https://github.com/Maronato/NGP/blob/master/learning/nmf.py">code itself</a>.
+        </p>
+        <p>
+            To just have a command line black box didn't seem very interesting nor innovative, so I decided to create a website(this one) that'd hold detailed information about how everything works.
+            <br>
+            Web black box \(>\) CLI black box
+            <br>
+            It also presents its visitors with examples of the running algorithm and explanations about its data and uses.
+        </p>
+        <p>
+            The site itself was made with the <a href="https://www.djangoproject.com/">Django Framework</a> and was coded in Python. All of the algorithms were also coded in Python.
+        </p>
+        <p>
+            To make the algorithm run faster, I ported its code to C using <a href="http://cython.org/">Cython</a>.
+        </p>
+        <p>
+            Now I'll explain the basic theory behind NMF and then present you with my implementation of it.
+        </p>
+        <h3>
+            NMF for dummies <small>by one of them</small>
+        </h3>
+        <p>
+            You take a matrix \(X\) with your data and you factorize it into two matrices, \(W\) and \(H\), where
+            <div id="eq1">
+                $$ W H = V \approx X $$
+            </div>
+        </p>
+        <p>
+            \(V \approx X\) because \(V\) will contain the predictions for the unknown values in \(X\).
+        </p>
+        <p>
+            The idea of NMFs is that they work by extracting features(\(R\)) from \(X\) and using these features to generate \(W\) and \(H\).
+            <br> So, given the non-negative matrix \(X\)(\(n\times m\)) and a set of \(r\) features we can generate \(W\)(\(n\times r\)) and \(H\)(\(r\times m\)).
+            <br> Formally I should point out that these matrices represent data vectors, but it helps not to think about these formalities for now.
+        </p>
+        <p>
+            Another thing to keep in mind is that \(r\) should be smaller than \(n\) and \(m\), since we would have more features than we objects in which to apply said features. That would generate unsolvable systems by definition(like when you have more variables
+            than equations in a linear system), so let's not do that.
+        </p>
+        <p>
+            <i>Fun fact:</i> NMF is also used in <a href="https://en.wikipedia.org/wiki/Dimensionality_reduction">dimensionality reduction</a>, by generating \(W\) and \(H\) that are smaller than the original \(X\), so that's another reason for \(r\)
+            to be smaller than \(n\) and \(m\).
+        </p>
+        <p>
+            Since \(V = WH\) we can rewrite it as \(v = Wh\) where \(v\) and \(h\) are single columns of \(V\) and \(H\) respectively. Thus, we can represent entire columns(vectors) of \(V\) by the linear combination of \(W\) and the components of \(H\). The same
+            thing can be achieved using \(v' = wH\), now with the lines of \(V\) and \(W\).
+            <br> Since relatively few basis vectors are used to represent many data vectors, we can get a good approximation of \(X\) if the basis vectors discover the latent structure present in the data.
+        </p>
+        <p>
+            Ok, so we've got the idea, but how do we generate \(W\) and \(H\)?
+        </p>
+        <h2> Algorithms </h2>
+        <p>
+            Lee and Seung are <a href="https://papers.nips.cc/paper/1861-algorithms-for-non-negative-matrix-factorization.pdf">much more capable</a> of explaining the in-depth math than I am, so I'll focus on explaining how I implemented each algorithm.
+        </p>
+        <p>
+            What the algorithm needs to do is find \(W\) and \(H\) that, when multiplied, get pretty close to \(X\).
+            <br> The first thing that we need to do is find a way to compare \(X\) and \(V\), since our main focus is to make them as close as possible to each other.
+            <br> This is what we'll call the <b>cost function</b>.
+            <br> A simple cost function(the one I use) is the square of the Euclidean distance between \(X\) and \(V\)
+        </p>
 
-When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+        $$||X - V||^2 = \sum_{ij}{(X_{ij} - V_{ij})^2}$$
+
+        <p>
+            Since we want \(V\approx X\), this difference must be close to 0. Let`s call it the <b>error</b> of our prediction, so that for each value of \(x_{ij}\) in \(X\)
+        </p>
+        $$e_{ij}^2 = (x_{ij} - v_{ij})^2 = (x_{ij} - \sum_{r=1}^{R}{ w_{ir}h_{rj}})^2$$
+        <p>
+            Where \(v_{ij}\), \(w_{ir}\) and \(h_{rj}\) are the respective values of \(V\), \(W\) and \(H\) at their coordinates.
+        </p>
+        <p>
+            Okay, so now we've got our cost function. How can we make it work so that \(e\) is as close to 0 as possible?
+            <br> You have <a href="https://arxiv.org/pdf/1401.5226v1.pdf">a lot</a> of choices, really.
+            <br> I chose what I know best: <a href="https://en.wikipedia.org/wiki/Gradient_descent">gradient descents</a> as additive update rules(AU) and multiplicative update rules(MU).
+        </p>
+        <blockquote>
+            Gradient descent is a first-order iterative optimization algorithm. To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of the gradient (or of the approximate gradient) of the function at the current
+            point. - <a href="https://en.wikipedia.org/wiki/Gradient_descent">Wikipedia</a>
+        </blockquote>
+        <p>
+            Since our error is a quadratic equation with positive coefficients, finding its minimum should be very straightfoward.
+            <br> We start by finding the gradient of our error
+        </p>
+        $$\nabla e_{ij}^2 = \frac{\partial e_{ij}^2}{\partial w_{ir}} + \frac{\partial e_{ij}^2}{\partial h_{rj}}$$
+        <p>
+            Where
+        </p>
+        $$\frac{\partial e_{ij}^2}{\partial w_{ir}} = - 2(x_{ij} - v_{ij}) h_{rj} = -2e_{ij}h_{rj} $$ $$\frac{\partial e_{ij}^2}{\partial h_{rj}} = - 2(x_{ij} - v_{ij}) w_{ir} = -2e_{ij}w_{ir} $$
+        <h4> Additive Update Rule </h4>
+        <p>
+            Having the gradient, we can now formulate an additive update rule
+        </p>
+        $$ w_{ir} \gets w_{ir} + 2 \alpha e_{ij}h_{rj} $$ $$ h_{rj} \gets h_{rj} + 2 \alpha e_{ij}w_{ir} $$
+        <p>
+            Where \(\alpha\) is the coefficient of our gradient descent
+            <br> Keep in mind that, since we are trying to find the minimum, \(\alpha\) needs to be kept small so that we don't skip it by accident.
+        </p>
+        <h4> Multiplicative Update Rule </h4>
+        <p>
+            If you think about it for each element of \(V\), its division by the same element in \(X\) should be close to 1, since they are supposed to be very similar.
+            <br> So each element, with respect to \(W\) and our cost function should look like
+        </p>
+        $$ 1 \leq \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} $$
+        <p>
+            So we can assume that the further away \(V\) is from \(X\), the bigger becomes the value of this division.
+            <br> Then, we can go even further and say that
+        </p>
+        $$ W_{ij} \gets W_{ij} \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} $$
+        <p>
+            Similarly, for H we have
+        </p>
+        $$ H_{ij} \gets H_{ij} \frac{(W^T X)_{ij}}{(W^T W H)_{ij}} $$
+        <p>
+            Those are our multiplicative update rules!
+        </p>
+        <p>
+            All we have to do now is convert those rules into code.
+        </p>
+        <h3> Implementation </h3>
+        <p>
+            Since my dataset is sparse, we'll only use the known values in it to evaluate our matrices, so that we have the actual predictions and not just the repeated zeros on \(V\).
+        </p>
+        <p>
+            I realized that MU converges very fast towards the minimum, but does not get quite there. AU, on the other hand, Takes some time to get near the minimum, but goes much further towards it than MU.
+            <br> I decided, then, to use both!
+            <br> MU'll go first and generate our \(W\) and \(H\) matrices very fast and, once it starts to get stuck, AU'll take it from there and finish the job.
+        </p>
+        <p>
+            The code for MU is very straightforward and goes something like:
+        </p>
+        <pre><code>import numpy
+
+        def MU(X, W, H, R):
+            for step in range(steps):
+                for i in range(len(X)):
+                    for j in range(len(X[i])):
+                        if X[i][j] > 0:
+                            for r in range(R):
+                                W[i][r] = W[i][r] * ((X.dot(H.T))[i][r]) / ((W.dot(H.dot(H.T)))[i][r])
+                                H[r][j] = H[r][j] * ((W.T.dot(X))[r][j]) / ((W.T.dot(W).dot(H))[r][j])
+            return W, H
+        </pre></code>
+        <p>
+            <i>Note that we compute \(HH^T\) first since this reduces the overall computation cost of \(W\).</i>
+        </p>
+        <p>
+            Now, since AU goes next and finishes the job, it's a good idea to regularize its results so that we avoid overfitting
+        </p>
+        <p>
+            To regularize it we just need to modify our cost function so that it looks like this:
+        </p>
+        $$e_{ij}^2 = (x_{ij} - \sum_{r=1}^{R}{ w_{ir}h_{rj}})^2 + \sum_{r=1}^{R}{(\frac{\beta}{2}||W||^2 + \frac{\gamma}{2}||H||^2)} $$
+        <p>
+            Where \(\beta\) and \(\gamma\) are the regularization parameters for \(W\) and \(H\) respectively.
+            <br> We could use just one, but two is useful when we want to regularize just one matrix and use it to generate other matrices for other datasets.
+        </p>
+        <p>
+            We then modify our AU rules so that they take these new parameters
+        </p>
+        $$ w_{ir} \gets w_{ir} + \alpha (2e_{ij}h_{rj} - \beta w_{ir}) $$ $$ h_{rj} \gets h_{rj} + \alpha (2e_{ij}w_{ir} - \gamma h_{rj}) $$
+        <p>
+            Finally, AU's code goes something like this:
+        </p>
+        <pre><code>import numpy
+
+        def AU(X, W, H, R, beta, gamma):
+            for step in range(steps):
+                for i in range(len(X)):
+                    for j in range(len(X[i])):
+                        if X[i][j] > 0:
+                            eij = X[i][j] - W[i, :].dot(H[:, j])
+                            for r in range(R):
+                                W[i][r] = W[i][r] + alpha * (2 * eij * H[r][j] - beta * W[i][r])
+                                H[r][j] = H[r][j] + alpha * (2 * eij * W[i][r] - gamma * H[r][j])
+            return W, H
+        </pre></code>
+        <p>
+            The snippets above are not exactly what you may find within the code. There is another trick that proved very effective during my tests.
+        </p>
+        <p>
+            When evaluating \(W\) and \(H\) I figured that updating both of them simultaneously led to one affecting the other and that made it difficult for them to make meaningful descents towards the minimum.
+            <br>
+            Because of that, I made the algorithms update only one of the matrices continuously for some time, then switch to the other matrice and update that for a while.
+            <br>
+            With that, each descent is not affected by other variables and it becomes somewhat of a linear problem, achieving better results faster.
+        </p>
+
+    </div>
 </div>
 {% endblock %}
