@@ -4,46 +4,46 @@ import numpy as np
 from scipy.stats.stats import pearsonr
 import pandas as pd
 from scipy.optimize import nnls
-from learning.helpers import ALS, cost
+from learning.helpers import *
 import timeit
 
 
 class NMF:
-    '''
-        non-negative matrix factorization to predict grades
-        Parameters:
-        -----------
-        W : preloaded W matrix
-        H : preloaded H matrix
+    """Non-Negative Matrix Factorization to predict grades.
 
-        Usage:
-        -----
-        Can be used with preloaded data:
+    Parameters:
+    -----------
+    W : preloaded W matrix
+    H : preloaded H matrix
 
-            from data import unicamp
-            from nmf import NMF
-            u = unicamp.load()
-            model = NMF(u.W, u.H)
-            test = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
-            model.predict(test)
+    Usage:
+    -----
+    Can be used with preloaded data:
 
-        Can also be used with new data(might take a while to fit):
+        from data import unicamp
+        from nmf import NMF
+        u = unicamp.load()
+        model = NMF(u.W, u.H)
+        test = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
+        model.predict(test)
 
-            from data import unicamp
-            from nmf import NMF
-            u = unicamp.load()
-            model = NMF()
-            model.fit(u.data, 8)
-            test = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
-            model.predict(test)
+    Can also be used with new data(might take a while to fit):
 
-        the generated W and H can be accessed with:
-        model.W
-        model.H
+        from data import unicamp
+        from nmf import NMF
+        u = unicamp.load()
+        model = NMF()
+        model.fit(u.data, 8)
+        test = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
+        model.predict(test)
 
-        To extract the whole predicted matrix:
-        model.get_V()
-    '''
+    the generated W and H can be accessed with:
+    model.W
+    model.H
+
+    To extract the whole predicted matrix:
+    model.get_V()
+    """
 
     def __init__(self, W=[], H=[], verbose=0):
         # W and H can be preloaded if you just want to predict grades using
@@ -58,20 +58,21 @@ class NMF:
         else:
             self.R = 1
 
-    def fit(self, X, R=1, steps=5000, alpha=0.004, beta=0.002, gamma=0.0002, eC=1):
-        '''
-            Parameters:
-            ----------
-            X: dataset(matrix) to be factorized
-            R: number of features to find
-            steps: maximum iterations to be perfermed when trying to minimize the distance between X and W.H
-            alpha: rate of approaching the minimum distance
-            beta: regularizing variable for W
-            gamma: regularizing variable for H
-            eC: minimum error required
-            W: feature weights, users
-            H: feature weights, items
-        '''
+    def fit(self, X, R=1, steps=5000, alpha=0.004, beta=0.002, gamma=0.0002, eC=1, alg=0):
+        """Fit method.
+
+        Parameters:
+        ----------
+        X: dataset(matrix) to be factorized
+        R: number of features to find
+        steps: maximum iterations to be perfermed when trying to minimize the distance between X and W.H
+        alpha: rate of approaching the minimum distance
+        beta: regularizing variable for W
+        gamma: regularizing variable for H
+        eC: minimum error required
+        W: feature weights, users
+        H: feature weights, items
+        """
         # sets instance vars
         self.R = R
         self.alpha = alpha
@@ -86,17 +87,18 @@ class NMF:
             self.H = np.random.rand(R, len(X[0]))
 
         # optimization variable to alternate between H and W
-        self.alternate = 1
+        alternate = 1
 
-        # algorithm change variable (deprecated for now)
-        alg = 0
+        # Keep track of previous error
+        prev_e = 0
 
         # benchmark
         start = timeit.default_timer()
 
         # iterates 'steps' times or until cost < eC
         for step in range(self.steps):
-            # calculates the cost (i.e., the distance between WH and X)
+
+            # calculates the cost
             e = cost(X, self.W, self.H, self.beta, self.gamma, self.R)
 
             # if the error is less than the stopping point, break
@@ -104,46 +106,58 @@ class NMF:
             if e < eC:
                 break
 
-            # benchmarking
-            if step % 100 == 0 and self.verbose != 0:
-                stop = timeit.default_timer()
-                print("Computation time: " + str(stop - start))
-                start = timeit.default_timer()
-                print("Current error: " + str(e))
-                print("Current iter: " + str(step))
+            # At every 100 iterations
+            if step % 100 == 0:
 
-            # if the error is big enough, use ALS
-            if e > eC and alg == 0:
+                # If the current algorithm starts to get stuck, change to the next or just end the calculation
+                if abs(prev_e - e) < 10:
+                    alg += 1
+                    print("Switched")
+                prev_e = e
 
-                # alternate is used inside ALS to choose between computations of W or H
-                if self.alternate == 1:
-                    self.alternate = 0
-                else:
-                    self.alternate = 1
-                self.W, self.H = ALS(X, self.W, self.H, self.alpha, self.beta, self.gamma, self.alternate, self.R)
+                # verbose benchmarking
+                if self.verbose != 0:
+                    stop = timeit.default_timer()
+                    print("Computation time: " + str(stop - start))
+                    start = timeit.default_timer()
+                    print("Current error: " + str(e))
+                    print("Current iter: " + str(step))
 
-            # if we are close to finding a solution, alternate to another algorithm (not yet implemented)
+            # Alternate betwen evaluations
+            if alternate == 1:
+                alternate = 0
             else:
-                alg = 1
-                self.ANLS(X, e)
+                alternate = 1
 
+            # Start using MU
+            if alg == 0:
+                self.W, self.H = MU(X, self.W, self.H, alternate, self.R)
+
+            # If MU gets stuck, change to AU
+            elif alg == 1:
+                self.W, self.H = AU(X, self.W, self.H, self.alpha, self.beta, self.gamma, alternate, self.R)
+
+            # If AU gets stuck, break
+            else:
+                break
         return
 
     def predict(self, X, steps=50000, alpha=0.004, beta=0.002, gamma=0.0002, eC=0.02):
-        '''
-            Parameters:
-            ----------
-            X: 2D of users to be predicted (can also handle 1D arrays)
-            steps: maximum iterations to be perfermed when trying to minimize the distance between X and W.H
-            alpha: rate of approaching the minimum distance
-            beta: regularizing variable for W
-            gamma: regularizing variable for H
-            eC: minimum error required
+        """Predict method.
 
-            Returns:
-            --------
-            numpy 2D array with predicted users' grades
-        '''
+        Parameters:
+        ----------
+        X: 2D of users to be predicted (can also handle 1D arrays)
+        steps: maximum iterations to be perfermed when trying to minimize the distance between X and W.H
+        alpha: rate of approaching the minimum distance
+        beta: regularizing variable for W
+        gamma: regularizing variable for H
+        eC: minimum error required
+
+        Returns:
+        --------
+        numpy 2D array with predicted users' grades
+        """
 
         # Accept both single and multiple predictions at the same time
         try:
@@ -158,7 +172,7 @@ class NMF:
 
         # Do the same thing as in fit(), but only approximate for W
         for step in range(steps):
-            W, H = ALS(X, W, self.H, alpha, beta, gamma, 1, self.R)
+            W, H = AU(X, W, self.H, alpha, beta, gamma, 1, self.R)
             e = cost(X, W, self.H, beta, gamma, self.R)
             self.error_predict = e
             if e < eC:
@@ -171,55 +185,35 @@ class NMF:
         # Get the whole fitted matrix (V = WH ≃ X)
         return np.dot(self.W, self.H)
 
-    def ANLS(self, X, e):
-        '''
-            ANLS reduction
-            Does not work, needs to be fixed
-        '''
-        print(e)
-        if e < 0.1:
-            if self.alternate == 1:
-                self.alternate = 0
-            else:
-                self.alternate = 1
-        for i in range(0, self.H.shape[0]):
-            res = nnls(self.W, X[:, i])
-            self.H[i, :] = res[0]
-
-        for j in range(0, self.W.shape[0]):
-            res = nnls(self.H, X[j, :])
-            self.W[j, :] = res[0]
-        return
-
 
 class NB_CF():
-    '''
-        This is pretty much useless with my dataset
-        but was easy to make, so why not
+    """Neighborhood-Based Collaborative Filtering.
 
-        Neighborhood-Based Collaborative Filtering
+    This is pretty much useless with my dataset
+    but was easy to make, so why not
 
-        Usage:
-            from Data import Unicamp
-            from Fun.ML import NB_CF
-            u = Unicamp.load()
-            model = NB_CF()
-            active = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
-            model.fit(active, u.dataset)
-            model.predict(0)
-    '''
+    Usage:
+        from Data import Unicamp
+        from Fun.ML import NB_CF
+        u = Unicamp.load()
+        model = NB_CF()
+        active = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
+        model.fit(active, u.dataset)
+        model.predict(0)
+    """
 
     def __init__(self):
         pass
 
     def fit(self, active, dataset, n_neighbors=20):
-        '''
-            Parameters:
-            ----------
-            active: user to be predicted
-            dataset: dataset with all users
-            n_neighbors: number of closest neighbors to use in prediction
-        '''
+        """Fit method.
+
+        Parameters:
+        ----------
+        active: user to be predicted
+        dataset: dataset with all users
+        n_neighbors: number of closest neighbors to use in prediction
+        """
         self.dataset = dataset
         self.active = active
 
@@ -235,15 +229,16 @@ class NB_CF():
         return
 
     def predict(self, item):
-        '''
-            Parameters:
-            ----------
-            item : index of the item to be predicted for the fitted user
+        """Predict method.
 
-            Returns:
-            --------
-            prediction (float)
-        '''
+        Parameters:
+        ----------
+        item : index of the item to be predicted for the fitted user
+
+        Returns:
+        --------
+        prediction (float)
+        """
 
         def n_mean(user):
             # returns the mean of the user's grades(only the ones > 0)
@@ -276,8 +271,7 @@ class NB_CF():
         return prediction(item)
 
     def calc_correlation(self):
-        # Uses scipy's pearson correlation. Might create my own to achieve better
-        # results
+        # Uses scipy's pearson correlation. Might create my own to achieve better results
 
         # indexes of the active's graded items
         items_active = [counter for counter, item in enumerate(self.active) if item > 0]
