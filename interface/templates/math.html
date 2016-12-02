@@ -111,7 +111,7 @@
         $$||X - V||^2 = \sum_{ij}{(X_{ij} - V_{ij})^2}$$
 
         <p>
-            Since we want \(V\approx X\), this difference must be close to 0. Let`s call it the <b>error</b> of our prediction, so that for each value of \(x_{ij}\) in \(X\)
+            Since we want \(V\approx X\), this difference must be close to 0. Let's call it the <b>error</b> of our prediction, so that for each value of \(x_{ij}\) in \(X\)
         </p>
         $$e_{ij}^2 = (x_{ij} - v_{ij})^2 = (x_{ij} - \sum_{r=1}^{R}{ w_{ir}h_{rj}})^2$$
         <p>
@@ -170,7 +170,7 @@
             Since my dataset is sparse, we'll only use the known values in it to evaluate our matrices, so that we have the actual predictions and not just the repeated zeros on \(V\).
         </p>
         <p>
-            I realized that MU converges very fast towards the minimum, but does not get quite there. AU, on the other hand, Takes some time to get near the minimum, but goes much further towards it than MU.
+            I realized that MU converges very fast towards the minimum, but does not get quite there. AU, on the other hand, takes some time to get near the minimum, but goes much further towards it than MU.
             <br> I decided, then, to use both!
             <br> MU'll go first and generate our \(W\) and \(H\) matrices very fast and, once it starts to get stuck, AU'll take it from there and finish the job.
         </p>
@@ -179,15 +179,15 @@
         </p>
         <pre><code>import numpy
 
-        def MU(X, W, H, R):
-            for step in range(steps):
-                for i in range(len(X)):
-                    for j in range(len(X[i])):
-                        if X[i][j] > 0:
-                            for r in range(R):
-                                W[i][r] = W[i][r] * ((X.dot(H.T))[i][r]) / ((W.dot(H.dot(H.T)))[i][r])
-                                H[r][j] = H[r][j] * ((W.T.dot(X))[r][j]) / ((W.T.dot(W).dot(H))[r][j])
-            return W, H
+def MU(X, W, H, R):
+    for step in range(steps):
+        for i in range(len(X)):
+            for j in range(len(X[i])):
+                if X[i][j] > 0:
+                    for r in range(R):
+                        W[i][r] = W[i][r] * ((X.dot(H.T))[i][r]) / ((W.dot(H.dot(H.T)))[i][r])
+                        H[r][j] = H[r][j] * ((W.T.dot(X))[r][j]) / ((W.T.dot(W).dot(H))[r][j])
+    return W, H
         </pre></code>
         <p>
             <i>Note that we compute \(HH^T\) first since this reduces the overall computation cost of \(W\).</i>
@@ -212,16 +212,16 @@
         </p>
         <pre><code>import numpy
 
-        def AU(X, W, H, R, beta, gamma):
-            for step in range(steps):
-                for i in range(len(X)):
-                    for j in range(len(X[i])):
-                        if X[i][j] > 0:
-                            eij = X[i][j] - W[i, :].dot(H[:, j])
-                            for r in range(R):
-                                W[i][r] = W[i][r] + alpha * (2 * eij * H[r][j] - beta * W[i][r])
-                                H[r][j] = H[r][j] + alpha * (2 * eij * W[i][r] - gamma * H[r][j])
-            return W, H
+def AU(X, W, H, R, beta, gamma):
+    for step in range(steps):
+        for i in range(len(X)):
+            for j in range(len(X[i])):
+                if X[i][j] > 0:
+                    eij = X[i][j] - W[i, :].dot(H[:, j])
+                    for r in range(R):
+                        W[i][r] = W[i][r] + alpha * (2 * eij * H[r][j] - beta * W[i][r])
+                        H[r][j] = H[r][j] + alpha * (2 * eij * W[i][r] - gamma * H[r][j])
+    return W, H
         </pre></code>
         <p>
             The snippets above are not exactly what you may find within the code. There is another trick that proved very effective during my tests.
