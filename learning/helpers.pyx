@@ -1,5 +1,5 @@
 import numpy as np
-# usage from here:
+# usage from:
 # http://docs.cython.org/en/latest/src/tutorial/numpy.html
 
 cimport numpy as np
@@ -10,43 +10,23 @@ ctypedef np.double_t DTYPE_t
 
 
 def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):
-    '''
-        Not quite ALS, but uses the idea of alternating between evaluations of W and H
-        https://arxiv.org/pdf/1401.5226v1.pdf
-        http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/
-    '''
+    """Aditive Update.
+
+    Regular AU calculations, component-wise.
+    More info: https://gradeprocessing.herokuapp.com/info/
+    """
     assert X.dtype == DTYPE and W.dtype == DTYPE and H.dtype == DTYPE
     cdef float eij
     for i in range(len(X)):
         for j in range(len(X[i])):
 
-            # Only evaluate WH if the current grade is set
+            # Only evaluate W, H if the current grade is set
             if X[i][j] > 0:
-                # Distance between X and WH
+                # Distance between X and V
                 eij = X[i][j] - np.dot(W[i, :], H[:, j])
-                # Not very efficient way of minimizing the erimror
-                # reduce the error for every feature
                 for r in range(R):
-                    '''
-                        assuming that the error is given by e^2 = (Xij - WHij)^2
-                        We use beta and gamma to regularize the error:
-                        reg(e^2) = e^2 + (||W||^2*beta/2 + ||H||^2*gamma/2)
 
-                        Therefore the gradient is given, with respect to W:
-                        -2(Xij - WHij)*Hrj - beta*Wir = -2*e*Hrj - beta*Wir
-                        and, with respect to H:
-                        -2(Xij - WHij)*Wir - gamma*Hrj = -2*e*Wir - gamma*Hrj
-
-                        So W'ir = Wir + (alpha)*(2*e*Hrj - beta*Wir)
-                        and H'rj = Hrj + (alpha)*(2*e*Wir - gamma*Hrj)
-                        With alpha being the rate of approximation
-
-                        This calculation alternate between H and W evaluations at every 100 steps
-                        This reduces the computing time by fixing the values of either H or W.
-                        Is a cheap way of converging very fast towards the min, but it never gets quite there
-                        A more complex solution like ANLS or HALS might be implemented to get activated later on and get closer to
-                        the min
-                    '''
+                    # Switch between W and H
                     if alternate == 1:
                         W[i][r] = abs(W[i][r] + alpha * (2 * eij * H[r][j] - beta * W[i][r]))
                     else:
@@ -54,12 +34,36 @@ def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[
     return W, H
 
 
-def cost(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double beta, double gamma, int R):
+def MU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, int alternate, int R):
+    """Multiplicative Update.
+
+    Regular MU calculations, component-wise.
+    More info: https://gradeprocessing.herokuapp.com/info/
+    """
     assert X.dtype == DTYPE and W.dtype == DTYPE and H.dtype == DTYPE
 
-    # Cost function.
-    # Calculates the total distance between W.H and X
-    # it is used to break the function.
+    for i in range(len(X)):
+        for j in range(len(X[i])):
+            # Only evaluate W, H if the current grade is set
+            if X[i][j] > 0:
+                for r in range(R):
+
+                    # Switch between W and H using alternate
+                    if alternate == 1:
+                        W[i][r] = W[i][r] * ((X.dot(H.T))[i][r]) / ((W.dot(H.dot(H.T)))[i][r])
+                    else:
+                        H[r][j] = H[r][j] * ((W.T.dot(X))[r][j]) / ((W.T.dot(W).dot(H))[r][j])
+    return W, H
+
+
+def cost(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double beta, double gamma, int R):
+    assert X.dtype == DTYPE and W.dtype == DTYPE and H.dtype == DTYPE
+    """Cost function.
+
+    Calculates the total distance between W.H and X
+    it is used to break the function.
+    More info: https://gradeprocessing.herokuapp.com/info/
+    """
     cdef float e = 0
     for i in range(len(X)):
         for j in range(len(X[i])):
