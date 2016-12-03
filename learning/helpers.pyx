@@ -10,7 +10,7 @@ ctypedef np.double_t DTYPE_t
 
 
 def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):
-    """Aditive Update.
+    """Additive Update.
 
     Regular AU calculations, component-wise.
     More info: https://gradeprocessing.herokuapp.com/info/
