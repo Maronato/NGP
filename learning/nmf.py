@@ -3,8 +3,7 @@
 import numpy as np
 from scipy.stats.stats import pearsonr
 import pandas as pd
-from scipy.optimize import nnls
-from learning.helpers import *
+from learning.helpers import cost, AU, MU
 import timeit
 
 
@@ -89,6 +88,9 @@ class NMF:
         # optimization variable to alternate between H and W
         alternate = 1
 
+        # Switch threshold
+        switch_threshold = (self.eC ** 2) * X.size / 200
+
         # Keep track of previous error
         prev_e = 0
 
@@ -110,9 +112,9 @@ class NMF:
             if step % 100 == 0:
 
                 # If the current algorithm starts to get stuck, change to the next or just end the calculation
-                if abs(prev_e - e) < 10:
+                print(e)
+                if abs(prev_e - e) < switch_threshold:
                     alg += 1
-                    print("Switched")
                 prev_e = e
 
                 # verbose benchmarking
