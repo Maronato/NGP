@@ -68,17 +68,19 @@
             NMF for dummies <small>by one of them</small>
         </h3>
         <p>
-            You take a matrix \(X\) with your data and you factorize it into two matrices, \(W\) and \(H\), where
+            NMF operates on the idea that there are latent features hidden within the data. It then tries to extract those features and, with them, we can recreate any point in the dataset, even the ones that don't exist yet.
+        </p>
+        <p>
+            To understand how it does that, take a matrix \(X\) with your data and you factorize it into two matrices, \(W\) and \(H\), where
             <div id="eq1">
-                $$ W H = V \approx X $$
+                $$ W H = V \approx X \tag1 $$
             </div>
         </p>
         <p>
-            \(V \approx X\) because \(V\) will contain the predictions for the unknown values in \(X\).
+            This new matrix \(V\) holds every single point generated from our extracted features(\(R\)), including the values missing in \(X\). To understand what \(W\) and \(H\) represent, head over to <a href="\example">this example</a>.
         </p>
         <p>
-            The idea of NMFs is that they work by extracting features(\(R\)) from \(X\) and using these features to generate \(W\) and \(H\).
-            <br> So, given the non-negative matrix \(X\)(\(n\times m\)) and a set of \(r\) features we can generate \(W\)(\(n\times r\)) and \(H\)(\(r\times m\)).
+            So, given the non-negative matrix \(X\)(\(n\times m\)) and a set of \(r\) features we can generate \(W\)(\(n\times r\)) and \(H\)(\(r\times m\)).
             <br> Formally I should point out that these matrices represent data vectors, but it helps not to think about these formalities for now.
         </p>
         <p>
@@ -102,18 +104,18 @@
             Lee and Seung are <a href="https://papers.nips.cc/paper/1861-algorithms-for-non-negative-matrix-factorization.pdf">much more capable</a> of explaining the in-depth math than I am, so I'll focus on explaining how I implemented each algorithm.
         </p>
         <p>
-            What the algorithm needs to do is find \(W\) and \(H\) that, when multiplied, get pretty close to \(X\).
+            What we need to do is find such \(W\) and \(H\) that, when multiplied, get pretty close to \(X\).
             <br> The first thing that we need to do is find a way to compare \(X\) and \(V\), since our main focus is to make them as close as possible to each other.
             <br> This is what we'll call the <b>cost function</b>.
             <br> A simple cost function(the one I use) is the square of the Euclidean distance between \(X\) and \(V\)
         </p>
 
-        $$||X - V||^2 = \sum_{ij}{(X_{ij} - V_{ij})^2}$$
+        $$||X - V||^2 = \sum_{ij}{(X_{ij} - V_{ij})^2} \tag2 \label{cost} $$
 
         <p>
-            Since we want \(V\approx X\), this difference must be close to 0. Let's call it the <b>error</b> of our prediction, so that for each value of \(x_{ij}\) in \(X\)
+            Since we want \(V\approx X\), this equation's result must be close to 0. Let's call it the <b>error</b> of our prediction, so that for each value of \(x_{ij}\) in \(X\)
         </p>
-        $$e_{ij}^2 = (x_{ij} - v_{ij})^2 = (x_{ij} - \sum_{r=1}^{R}{ w_{ir}h_{rj}})^2$$
+        $$e_{ij}^2 = (x_{ij} - v_{ij})^2 = (x_{ij} - \sum_{r=1}^{R}{ w_{ir}h_{rj}})^2 \tag3 $$
         <p>
             Where \(v_{ij}\), \(w_{ir}\) and \(h_{rj}\) are the respective values of \(V\), \(W\) and \(H\) at their coordinates.
         </p>
@@ -130,32 +132,38 @@
             Since our error is a quadratic equation with positive coefficients, finding its minimum should be very straightfoward.
             <br> We start by finding the gradient of our error
         </p>
-        $$\nabla e_{ij}^2 = \frac{\partial e_{ij}^2}{\partial w_{ir}} + \frac{\partial e_{ij}^2}{\partial h_{rj}}$$
+        $$\nabla e_{ij}^2 = \frac{\partial e_{ij}^2}{\partial w_{ir}} + \frac{\partial e_{ij}^2}{\partial h_{rj}} \tag4 $$
         <p>
             Where
         </p>
         $$\frac{\partial e_{ij}^2}{\partial w_{ir}} = - 2(x_{ij} - v_{ij}) h_{rj} = -2e_{ij}h_{rj} $$ $$\frac{\partial e_{ij}^2}{\partial h_{rj}} = - 2(x_{ij} - v_{ij}) w_{ir} = -2e_{ij}w_{ir} $$
         <h4> Additive Update Rule </h4>
         <p>
-            Having the gradient, we can now formulate an additive update rule
+            Having the gradient, we can now formulate a simple gradient descent and use it as our additive update rule
         </p>
         $$ w_{ir} \gets w_{ir} + 2 \alpha e_{ij}h_{rj} $$ $$ h_{rj} \gets h_{rj} + 2 \alpha e_{ij}w_{ir} $$
         <p>
-            Where \(\alpha\) is the coefficient of our gradient descent
+            Since the gradient expresses the "distance"(vector) from the current component to the minimum, we can update the component by adding a factorized gradient to the current value.
+            <br>
+            \(\alpha\), then, is the coefficient of our gradient descent.
             <br> Keep in mind that, since we are trying to find the minimum, \(\alpha\) needs to be kept small so that we don't skip it by accident.
         </p>
         <h4> Multiplicative Update Rule </h4>
         <p>
-            If you think about it for each element of \(V\), its division by the same element in \(X\) should be close to 1, since they are supposed to be very similar.
-            <br> So each element, with respect to \(W\) and our cost function should look like
+            If you think about it, for each element of \(V\), its division by the same element in \(X\) should be close to 1, since they are supposed to be very similar.
+            <br> So each element, with respect to \(W\) and our cost function, should look like
         </p>
-        $$ 1 \leq \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} $$
+        $$ 1 \leq \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} \tag5 $$
         <p>
+            Where \(WH = V\).
+            <br>
             So we can assume that the further away \(V\) is from \(X\), the bigger becomes the value of this division.
             <br> Then, we can go even further and say that
         </p>
         $$ W_{ij} \gets W_{ij} \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} $$
         <p>
+            Since the division expresses how "close" the current \(W_{ij}\) is from the optimal one, we can update it by multiplying its current value by the division.
+            <br>
             Similarly, for H we have
         </p>
         $$ H_{ij} \gets H_{ij} \frac{(W^T X)_{ij}}{(W^T W H)_{ij}} $$
@@ -224,14 +232,22 @@ def AU(X, W, H, R, beta, gamma):
     return W, H
         </pre></code>
         <p>
-            The snippets above are not exactly what you may find within the code. There is another trick that proved very effective during my tests.
+            The snippets above are not exactly what you may find within the code. There is another trick that proved to be very effective during my tests.
         </p>
+        <h4>Trick that proved to be very effective</h4>
         <p>
             When evaluating \(W\) and \(H\) I figured that updating both of them simultaneously led to one affecting the other and that made it difficult for them to make meaningful descents towards the minimum.
             <br>
             Because of that, I made the algorithms update only one of the matrices continuously for some time, then switch to the other matrice and update that for a while.
             <br>
-            With that, each descent is not affected by other variables and it becomes somewhat of a linear problem, achieving better results faster.
+            With that, each descent is not affected by other variables and it becomes somewhat of a linear problem. This not only reduces the computation cost by half, but also results in more efficient descents per iteration.
+        </p>
+        <h2>Finishing up</h2>
+        <p>
+            If you haven't already, check out the live simulation at <a href="/">the home page</a> and the hands-on explanation of the meaning <a href="/example">behind \(W\) and \(H\)</a>.
+        </p>
+        <p>
+            If you have any questions, suggestions or if you want to talk about something that I did right(or wrong), feel free to contact me at <a href="mailto:gustavomaronato@gmail.com">gustavomaronato@gmail.com</a>.
         </p>
 
     </div>
