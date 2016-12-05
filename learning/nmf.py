@@ -91,17 +91,18 @@ class NMF:
         # Switch threshold
         switch_threshold = (self.eC ** 2) * X.size / 200
 
-        # Keep track of previous error
-        prev_e = 0
-
         # benchmark
         start = timeit.default_timer()
 
         # iterates 'steps' times or until cost < eC
         for step in range(self.steps):
 
-            # calculates the cost
-            e = cost(X, self.W, self.H, self.beta, self.gamma, self.R)
+            # calculates the cost only once per 2 iterations
+            if alternate == 1:
+                e = cost(X, self.W, self.H, self.beta, self.gamma, self.R)
+            if step == 0:
+                # Keep track of previous error
+                prev_e = e + 100
 
             # if the error is less than the stopping point, break
             self.error_fit = e
@@ -112,8 +113,7 @@ class NMF:
             if step % 100 == 0:
 
                 # If the current algorithm starts to get stuck, change to the next or just end the calculation
-                print(e)
-                if abs(prev_e - e) < switch_threshold:
+                if prev_e - e < switch_threshold:
                     alg += 1
                 prev_e = e
 
@@ -172,12 +172,16 @@ class NMF:
         np.random.seed(0)
         W = np.random.rand(len(X), self.R)
 
+        # Keep track of previous error
+        prev_e = 0
+        switch_threshold = (eC ** 2) * X.size / 200
+
         # Do the same thing as in fit(), but only approximate for W
         for step in range(steps):
             W, H = AU(X, W, self.H, alpha, beta, gamma, 1, self.R)
             e = cost(X, W, self.H, beta, gamma, self.R)
             self.error_predict = e
-            if e < eC:
+            if e < eC or abs(prev_e - e) < switch_threshold:
                 break
 
         # return the predicted matrix
