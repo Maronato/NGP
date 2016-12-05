@@ -1,0 +1,220 @@
+{
+    "name": "flare",
+    "children": [{
+        "name": "Calculus 1",
+        "children": [{
+            "name": "Feature 0",
+            "size": 2.2196799236
+        }, {
+            "name": "Feature 1",
+            "size": 0.939279384158
+        }, {
+            "name": "Feature 2",
+            "size": 2.86316198522
+        }, {
+            "name": "Feature 3",
+            "size": 3.09668842938
+        }, {
+            "name": "Feature 4",
+            "size": 0.105774574842
+        } ]
+    }, {
+        "name": "Calculus 2",
+        "children": [{
+            "name": "Feature 0",
+            "size": 2.52293760292
+        }, {
+            "name": "Feature 1",
+            "size": 1.35226842046
+        }, {
+            "name": "Feature 2",
+            "size": 1.90987761715
+        }, {
+            "name": "Feature 3",
+            "size": 1.0851159217
+        }, {
+            "name": "Feature 4",
+            "size": 1.14401363192
+        } ]
+    }, {
+        "name": "Calculus 3",
+        "children": [{
+            "name": "Feature 0",
+            "size": 2.32604140085
+        }, {
+            "name": "Feature 1",
+            "size": 3.81243920282
+        }, {
+            "name": "Feature 2",
+            "size": 0.011146274478
+        }, {
+            "name": "Feature 3",
+            "size": 0.0326375817246
+        }, {
+            "name": "Feature 4",
+            "size": 0.28373326011
+        } ]
+    }, {
+        "name": "Calculus 4",
+        "children": [{
+            "name": "Feature 0",
+            "size": 7.46602478426
+        }, {
+            "name": "Feature 1",
+            "size": 0.767717289215
+        }, {
+            "name": "Feature 2",
+            "size": 0.100537715678
+        }, {
+            "name": "Feature 3",
+            "size": 0.000370896446503
+        }, {
+            "name": "Feature 4",
+            "size": 0.00174218995846
+        } ]
+    }, {
+        "name": "Physics 1",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.475761147925
+        }, {
+            "name": "Feature 1",
+            "size": 1.53379580892
+        }, {
+            "name": "Feature 2",
+            "size": 1.52476484099
+        }, {
+            "name": "Feature 3",
+            "size": 3.2937174499
+        }, {
+            "name": "Feature 4",
+            "size": 0.824969472177
+        } ]
+    }, {
+        "name": "Physics 2",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.447918136828
+        }, {
+            "name": "Feature 1",
+            "size": 2.68713855394
+        }, {
+            "name": "Feature 2",
+            "size": 0.83719480151
+        }, {
+            "name": "Feature 3",
+            "size": 2.94871514794
+        }, {
+            "name": "Feature 4",
+            "size": 0.0152856222285
+        } ]
+    }, {
+        "name": "Physics 3",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.00795767021998
+        }, {
+            "name": "Feature 1",
+            "size": 4.38803624868
+        }, {
+            "name": "Feature 2",
+            "size": 0.235535746675
+        }, {
+            "name": "Feature 3",
+            "size": 0.099211333979
+        }, {
+            "name": "Feature 4",
+            "size": 1.37279843912
+        } ]
+    }, {
+        "name": "Physics 4",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.0103205621918
+        }, {
+            "name": "Feature 1",
+            "size": 4.20590037711
+        }, {
+            "name": "Feature 2",
+            "size": 0.0145942957034
+        }, {
+            "name": "Feature 3",
+            "size": 2.19998233965
+        }, {
+            "name": "Feature 4",
+            "size": 0.282771408009
+        } ]
+    }, {
+        "name": "Programming 1",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.00592513355303
+        }, {
+            "name": "Feature 1",
+            "size": 0.329452245297
+        }, {
+            "name": "Feature 2",
+            "size": 8.46248961141
+        }, {
+            "name": "Feature 3",
+            "size": 1.67873836544
+        }, {
+            "name": "Feature 4",
+            "size": 0.844887152206
+        } ]
+    }, {
+        "name": "Programming 2",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.0125072017536
+        }, {
+            "name": "Feature 1",
+            "size": 2.14339676598
+        }, {
+            "name": "Feature 2",
+            "size": 6.6352067615
+        }, {
+            "name": "Feature 3",
+            "size": 0.00511595339225
+        }, {
+            "name": "Feature 4",
+            "size": 0.961753755325
+        } ]
+    }, {
+        "name": "Analytic Geometry",
+        "children": [{
+            "name": "Feature 0",
+            "size": 2.6384663427
+        }, {
+            "name": "Feature 1",
+            "size": 0.0111434484321
+        }, {
+            "name": "Feature 2",
+            "size": 0.0111096079034
+        }, {
+            "name": "Feature 3",
+            "size": 1.98387702618
+        }, {
+            "name": "Feature 4",
+            "size": 2.60813874113
+        } ]
+    }, {
+        "name": "Linear Algebra",
+        "children": [{
+            "name": "Feature 0",
+            "size": 2.47827006046
+        }, {
+            "name": "Feature 1",
+            "size": 0.148734851299
+        }, {
+            "name": "Feature 2",
+            "size": 0.0182744473143
+        }, {
+            "name": "Feature 3",
+            "size": 0.420958647301
+        }, {
+            "name": "Feature 4",
+            "size": 3.74663658283
+        } ]
+    }]
+}
