@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from learning.nmf import NMF
 import numpy as np
 import json
+from data import unicamp
 
 # Create your views here.
 
@@ -12,7 +13,23 @@ def index(request):
 
 
 def stats(request):
-    return render(request, 'stats.html')
+    u = unicamp.load()
+    data = u.data.T
+    head = ['Calculus 1', 'Calculus 2', 'Calculus 3', 'Calculus 4', 'Physics 1', 'Physics 2', 'Physics 3', 'Physics 4', 'Programming 1', 'Programming 2', 'Analytic Geometry', 'Linear Algebra']
+
+    course_stats = []
+    for count, row in enumerate(data):
+        course = head[count]
+        nonzero = np.count_nonzero(row)
+        mean = round(np.mean(row[np.nonzero(row)]), 2)
+        median = np.median(row[np.nonzero(row)])
+        std = round(np.std(row[np.nonzero(row)]), 2)
+        minv = np.amin(row[np.nonzero(row)])
+        maxv = np.amax(row[np.nonzero(row)])
+        row_list = [course, nonzero, mean, median, std, minv, maxv]
+        course_stats.append(row_list)
+    stat_names = ["Course", "Nonzero", "Mean", "Median", "STD", "Min", "Max"]
+    return render(request, 'stats.html', {"course_stats": course_stats, "stat_names": stat_names})
 
 
 def info(request):
@@ -37,7 +54,14 @@ def fit_predict(request):
     eC = float(request.POST['eC'])
     matrix = []
     for row in raw:
-        cleaned_row = [float(x[1]) for x in sorted(row.items(), key=lambda s: s[0]) if x[1].isnumeric()]
+        new_row = [x[1] for x in sorted(row.items(), key=lambda s: s[0]) if x[1].isnumeric() or x[1] == "?"]
+        cleaned_row = []
+        for item in new_row:
+            if item == "?":
+                item = float(0)
+            else:
+                item = float(item)
+            cleaned_row.append(item)
         matrix.append(cleaned_row)
     matrix = np.array(matrix)
     model = NMF()
