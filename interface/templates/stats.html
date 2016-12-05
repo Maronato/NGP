@@ -11,7 +11,7 @@
         <h2> What is this about </h2>
         <p>
             To go along with the algorithm developed, I decided to gather some data and use it to test the algorithm with.
-            <br> Since the it runs on known <a href="/info/">mathematics</a>, it should work well with whatever good dataset you throw at it, only needing some tweaks and feature selection.
+            <br> Since it runs on known <a href="/info/">mathematics</a>, it should work well with whatever good dataset you throw at it, only needing some tweaks and feature selection.
         </p>
         <p>
             This section, then, is only to show some of my results and should not be taken seriously since, as you'll see below, the dataset that I've collected is not of very high quality.
@@ -104,7 +104,7 @@
             <br>
             If we consider an average of 4 courses per term we can extrapolate that most students who responded the form are at least sophomores.
             <br>
-            We can also argue that most of them are majoring in something related to math or engineering, since these courses are usually taught on those majors only.
+            We can also argue that most of them are majoring in something related to math or engineering since these courses are usually taught on those majors only.
         </p>
         <p>
 
@@ -114,7 +114,7 @@
         <h2> The results </h2>
         <p>
             To discover what would be the number of features that best describes the dataset, I ran a cross-validation test using 20% of the dataset as the test set.
-            <br> To simulate the prediction of grades, I selected a random known grade from every student in the test set and compared it to the prediction generated from model trained using the other 80% of the dataset.
+            <br> To simulate the prediction of grades, I selected a random known grade from every student in the test set and compared it to the prediction generated from a model trained using the other 80% of the dataset.
             <br> The results of the top-5 performing feature values across 50 runs are shown below:
         </p>
         <div class="text-center">
@@ -141,7 +141,7 @@
             </tbody>
         </table>
         <p>
-            The percentage is not so good, but I wouldn't blame the algorithm for it.<br> My method of collecting the dataset makes it prone to have a lot of noise and wrong data, since the students's input is not guaranteed to be right. Besides that,
+            The percentage is not so good, but I wouldn't blame the algorithm for it.<br> My method of collecting the dataset makes it prone to have a lot of noise and wrong data since the students' input is not guaranteed to be right. Besides that,
             I didn't collect any additional information that could be used as bias or to better define student's profiles.
         </p>
         <p>
@@ -174,10 +174,10 @@
             We can extract some pretty insightful information from these charts. For example, we can see that the grades on Programming 1 and 2 are very much related(per Feature 1) and that people who do well on Analytic Geometry usually do pretty well on Linear Algebra too(per Feature 7).
         </p>
         <p>
-            We can also see that for one to get good grades on Physics 1, they must have a pretty high weight related to features 2 through 4, and that feature 1 is pretty much a must to get good grades on Programming 1. So much so that if you get a good grade on Programming 1, you most probably will get a good grade on Programming 2 as well, since they share most of their high-weight features.
+            We can also see that for one to get good grades on Physics 1, they must have a pretty high weight related to features 2 through 4 and that feature 1 is pretty much a must to get good grades on Programming 1. So much so that if you get a good grade on Programming 1, you most probably will get a good grade on Programming 2 as well, since they share most of their high-weight features.
         </p>
         <p>
-            We could analyse some students' <code>W</code> tables as well, but since the relationship is pretty much of linear correlation and the high number of features(8) would render the analysis a little too complex, I leave this simpler and nicer <a href="/example/">example</a> to satisfy your hunger for explanations.
+            We could analyze some students' <code>W</code> tables as well, but since the relationship is pretty much of linear correlation and the high number of features(8) would render the analysis a little too complex, I leave this simpler and nicer <a href="/example/">example</a> to satisfy your hunger for explanations.
         </p>
         <p>
             You can also see the <a href="https://github.com/Maronato/NGP/blob/master/data/UnicampW.csv">raw W table</a> extracted from the dataset, where each column is a feature and each row a student. Compare it to the <a href="https://github.com/Maronato/NGP/blob/master/data/cleaned_Unicamp.csv">cleaned dataset</a> to get an idea of how the grades are affected by the features.
