@@ -4,7 +4,7 @@
         <h1> NGP </h1>
         <h3> Motivation </h3>
         <p>
-            Timmy is a student in a school. He took some classes but didn't take others. Bob is another student that, like Timmy, took some, but not all classes. They both really like math, but are not so good at history and english, so their grades usually are proportional
+            Timmy is a student at a school. He took some classes but didn't take others. Bob is another student that, like Timmy, took some, but not all classes. They both really like math, but are not so good at history and english, so their grades usually are proportional
             to their interests.
             <br> Some of the classes that Timmy took, Bob also took and got similar grades to those of Timmy's, as one would expect.
         </p>
@@ -55,24 +55,136 @@
         <hr>
         <h1 id="example">Try it!</h1>
         <p>
-            Bellow is an interactive demonstration of the algorithm that you can fiddle with. Read the next section if you want some insights on what is happening, or just go straight ahead if you can't wait!
+            Below is an interactive demonstration of the algorithm that you can fiddle with. Read the next section if you want some insights on what is happening, or just go straight ahead if you can't wait!
         </p>
         <p>
             Want a better explanation of what <code>W</code> and <code>H</code> <i>really</i> mean with another example? <a href="/example/">Click here!</a>
         </p>
+
         <h3>Understanding the example</h3>
         <p>
             The <code>X</code> matrix is completely editable. You can put any positive integers smaller than 10 and generate real-time predictions for them.
             <br>
-            <b>Stick to the default values for now</b>, though.
+            <b><i>Stick to the default values for now</i></b>, though.
         </p>
         <p>
             You'll see that there are already some values filled-in.
             <br> More specifically, you'll see that they follow a clear pattern in which the <b>columns are in ascending order</b>.
         </p>
         <p>
-            For us, humans, is very simple to predict what the zeros should be, but what about for a computer?
+            For us, humans, is very simple to predict what the '?'s should be, but what about for a computer?
         </p>
+
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <label for="table">Matrix X - Click to edit values - Use '?' predict that value.</label>
+                </div>
+                <table id="table" class="table table-striped">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th class="text-center">Student</th>
+                            <th class="text-center">English</th>
+                            <th class="text-center">History</th>
+                            <th class="text-center">Math</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-center">Timmy</th>
+                            <td class="text-center">1</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-center">Bob</th>
+                            <td class="text-center">1</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">?</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-center">Marle</th>
+                            <td class="text-center">3</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">5</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-center">John</th>
+                            <td class="text-center">4</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">?</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <br>
+                <br>
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th colspan="5" class="text-center">Predicted values</th>
+                        </tr>
+                        <tr id="PHead">
+                        </tr>
+                    </thead>
+                    <tbody id="PredTable">
+                        <tr>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="R">Features(<code>R</code>):</label>
+                        <select class="form-control" id="R">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="eC">Error(<code>eC</code>):</label>
+                        <select class="form-control" id="eC">
+                          <option>0.1</option>
+                          <option>0.01</option>
+                          <option>0.001</option>
+                          <option>0.0001</option>
+                          <option>0.00001</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-xs-offset-4">
+                    <button id="fit-predict" class="btn btn-lg btn-success" onclick="predict()">Predict!</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+
         <h4>Warming up</h4>
         <p>
             Start by generating a prediction with all the default values, then come back here.
@@ -81,7 +193,7 @@
             Not so good, huh? The previous values are OK, but the predictions are pretty bad.
             <br>
             <i>Side note: You can take a look at <code>W</code> and <code>H</code>
-      bellow! Notice how they change in between steps.</i>
+      below! Notice how they change in between steps.</i>
         </p>
         <h4>Changing things</h4>
         <p>
@@ -114,145 +226,44 @@
             <h4> Don't think that was enough? Want to see a more practical, in-depth, example?
         <a href="/example/">Click here!</a></h4>
         </p>
-        <br>
         <hr>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <table id="table" class="table table-striped">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th class="text-center">Student</th>
-                        <th class="text-center">English</th>
-                        <th class="text-center">History</th>
-                        <th class="text-center">Math</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="text-center">Timmy</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">3</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">Bob</th>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">Marle</th>
-                        <td class="text-center">3</td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">5</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-center">John</th>
-                        <td class="text-center">4</td>
-                        <td class="text-center">5</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th colspan="5" class="text-center">Table W (Weights)</th>
+                        </tr>
+                        <tr id="WHead">
+                        </tr>
+                    </thead>
+                    <tbody id="WTable">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th colspan="5" class="text-center">Table H (Features)</th>
+                        </tr>
+                        <tr id="HHead">
+                        </tr>
+                    </thead>
+                    <tbody id="HTable">
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-md-6">
-            <table class="table table-striped">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th colspan="5" class="text-center">Predicted values</th>
-                    </tr>
-                    <tr id="PHead">
-                    </tr>
-                </thead>
-                <tbody id="PredTable">
-                    <tr>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-striped">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th colspan="5" class="text-center">Table W (Weights)</th>
-                    </tr>
-                    <tr id="WHead">
-                    </tr>
-                </thead>
-                <tbody id="WTable">
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-6">
-            <table class="table table-striped">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th colspan="5" class="text-center">Table H (Features)</th>
-                    </tr>
-                    <tr id="HHead">
-                    </tr>
-                </thead>
-                <tbody id="HTable">
-                </tbody>
-            </table>
-        </div>
+        <hr>
     </div>
 
-    <div class="col-md-4 col-md-offset-4">
-        <div class="col-xs-6">
-            <div class="form-group">
-                <label for="R">Features(<code>R</code>):</label>
-                <select class="form-control" id="R">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="form-group">
-                <label for="eC">Error(<code>eC</code>):</label>
-                <select class="form-control" id="eC">
-                  <option>0.1</option>
-                  <option>0.01</option>
-                  <option>0.001</option>
-                  <option>0.0001</option>
-                  <option>0.00001</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-xs-4 col-xs-offset-4">
-            <button id="fit-predict" class="btn btn-lg btn-success" onclick="predict()">Predict!</button>
-        </div>
-    </div>
 </div>
 
 <script>
     $('#table').editableTableWidget();
     $('table td').on('validate', function(evt, newValue) {
-        if (newValue > 10 || isNaN(newValue) || newValue < 0 || newValue == "") {
+        if ((newValue > 10 || isNaN(newValue) || newValue < 0 || newValue == "") && newValue != "?") {
             return false; // mark cell as invalid
         };
     });
