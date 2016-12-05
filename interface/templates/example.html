@@ -1,4 +1,32 @@
-{% extends "base.html" %} {% load staticfiles %} {% block content %}
+{% extends "base.html" %} {% load staticfiles %}
+{% block extend_scripts %}
+<script>
+    $(document).ready(function() {
+        var table = $('#table').tableToJSON();
+        var features = 2
+        var eC = 0.001
+        data = {
+            "data": JSON.stringify(table),
+            "R": features,
+            "eC": eC,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+        $.ajax({
+            type: "POST",
+            url: "/fit-predict/",
+            data: data,
+            success: function(resp) {
+                update_table("#PredTable", resp['data'], features);
+                update_table("#HTable", resp['H'], features);
+                update_table("#WTable", resp['W'], features);
+            },
+            dataType: "json"
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
 <div class="container">
     <h1> More Examples </h1>
     <div class="row">
@@ -149,28 +177,5 @@
                 target="_blank">so</a> <a href="http://bioinformatics.oxfordjournals.org/content/28/18/2304.short" target="_blank">much</a> <a href="https://scholar.google.com/scholar?q=matrix+factorization+scholar&hl=en" target="_blank">more</a>!
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        var table = $('#table').tableToJSON();
-        var features = 2
-        var eC = 0.001
-        data = {
-            "data": JSON.stringify(table),
-            "R": features,
-            "eC": eC,
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        }
-        $.ajax({
-            type: "POST",
-            url: "/fit-predict/",
-            data: data,
-            success: function(resp) {
-                update_table("#PredTable", resp['data'], features);
-                update_table("#HTable", resp['H'], features);
-                update_table("#WTable", resp['W'], features);
-            },
-            dataType: "json"
-        });
-    });
-</script>
+
 {% endblock %}
