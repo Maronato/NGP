@@ -1,9 +1,11 @@
-{% extends "base.html" %} {% load staticfiles %} {% block content %}
+{% extends "base.html" %} {% load staticfiles %} {% block extend_scripts %}
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 </script>
+{% endblock %} {% block content %}
+
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <h1>
@@ -40,20 +42,17 @@
             I started by reading a <a href="http://www.columbia.edu/~jwp2128/Teaching/W4721/papers/ieeecomputer.pdf">lot</a> <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.173.2797&rep=rep1&type=pdf">of</a> <a href="http://www.slideshare.net/studentalei/matrix-factorization-techniques-for-recommender-systems">papers</a>            and documents on MF. After a while, I realized that the idea behind it is actually very simple.
         </p>
         <p>
-            I know that SKLearn has a very good <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">NMF module</a>, but more than just implement something that worked, I wanted to <i>understand</i> how it really
-            works. What's the fun in using black boxes for everything?.
+            I know that SKLearn has a very good <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">NMF module</a>, but more than just implement something that worked, I wanted to <i>understand</i> how it really works.
+            What's the fun in using black boxes for everything?.
         </p>
         <p>
             I decided to include the algorithms inside a class, very similar to what SKLearn does, so that one could easily initialize, fit and predict values with simple methods.
-            <br>
-            More details can be found within the <a href="https://github.com/Maronato/NGP/blob/master/learning/nmf.py">code itself</a>.
+            <br> More details can be found within the <a href="https://github.com/Maronato/NGP/blob/master/learning/nmf.py">code itself</a>.
         </p>
         <p>
             To just have a command line black box didn't seem very interesting nor innovative, so I decided to create a website(this one) that'd hold detailed information about how everything works.
-            <br>
-            Web black box \(>\) CLI black box
-            <br>
-            It also presents its visitors with examples of the running algorithm and explanations about its data and uses.
+            <br> Web black box \(>\) CLI black box
+            <br> It also presents its visitors with examples of the running algorithm and explanations about its data and uses.
         </p>
         <p>
             The site itself was made with the <a href="https://www.djangoproject.com/">Django Framework</a> and was coded in Python. All of the algorithms were also coded in Python.
@@ -144,8 +143,7 @@
         $$ w_{ir} \gets w_{ir} + 2 \alpha e_{ij}h_{rj} $$ $$ h_{rj} \gets h_{rj} + 2 \alpha e_{ij}w_{ir} $$
         <p>
             Since the gradient expresses the "distance"(vector) from the current component to the minimum, we can update the component by adding a factorized gradient to the current value.
-            <br>
-            \(\alpha\), then, is the coefficient of our gradient descent.
+            <br> \(\alpha\), then, is the coefficient of our gradient descent.
             <br> Keep in mind that, since we are trying to find the minimum, \(\alpha\) needs to be kept small so that we don't skip it by accident.
         </p>
         <h4> Multiplicative Update Rule </h4>
@@ -156,15 +154,13 @@
         $$ 1 \leq \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} \tag5 $$
         <p>
             Where \(WH = V\).
-            <br>
-            So we can assume that the further away \(V\) is from \(X\), the bigger becomes the value of this division.
+            <br> So we can assume that the further away \(V\) is from \(X\), the bigger becomes the value of this division.
             <br> Then, we can go even further and say that
         </p>
         $$ W_{ij} \gets W_{ij} \frac{(X H^T)_{ij}}{(W H H^T)_{ij}} $$
         <p>
             Since the division expresses how "close" the current \(W_{ij}\) is from the optimal one, we can update it by multiplying its current value by the division.
-            <br>
-            Similarly, for H we have
+            <br> Similarly, for H we have
         </p>
         $$ H_{ij} \gets H_{ij} \frac{(W^T X)_{ij}}{(W^T W H)_{ij}} $$
         <p>
@@ -237,10 +233,15 @@ def AU(X, W, H, R, beta, gamma):
         <h4>Trick that proved to be very effective</h4>
         <p>
             When evaluating \(W\) and \(H\) I figured that updating both of them simultaneously led to one affecting the other and that made it difficult for them to make meaningful descents towards the minimum.
+            <br> Because of that, I made the algorithms update only one of the matrices continuously for some time, then switch to the other matrice and update that for a while.
+            <br> With that, each descent is not affected by other variables and it becomes somewhat of a linear problem. This not only reduces the computation cost by half, but also results in more efficient descents per iteration.
+        </p>
+        <p>
+            To test it I ran the algorithm with and without the "trick" generating a fit with 12 features for the whole dataset 100 times.
             <br>
-            Because of that, I made the algorithms update only one of the matrices continuously for some time, then switch to the other matrice and update that for a while.
+            The average fitting time without the "trick" was 16.192 seconds and 11.243 with it, so a ~30% better performance time-wise.
             <br>
-            With that, each descent is not affected by other variables and it becomes somewhat of a linear problem. This not only reduces the computation cost by half, but also results in more efficient descents per iteration.
+            Precision-wise, I used the error calculated using the cost function mentioned above and the difference was negligible: 7.2 error units on the whole dataset with the non-trick version and 8.1 with the trick version.
         </p>
         <h2>Finishing up</h2>
         <p>
