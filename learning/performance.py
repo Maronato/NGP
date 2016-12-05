@@ -33,7 +33,7 @@ def run(percentage, R=12, uni=unicamp.load().data, test=[]):
     print("Training with " + str(n_train) + " elements, " + str(R) + " features.")
     nmf = NMF()
     start = timeit.default_timer()
-    nmf.fit(train, R)
+    nmf.fit(train, R, alg=1)
     stop = timeit.default_timer()
     print()
     print("Took " + str(stop - start) + " seconds.")
@@ -65,7 +65,7 @@ def create_test(data):
         deleted = 0
         index = 0
         while True:
-            to_delete = random.randint(0, len(item) - 1)
+            to_delete = random.choice([0, 1, 2, 4, 5, 8, 10, 11])
             if item[to_delete] != 0:
                 deleted = item[to_delete]
                 index = to_delete
