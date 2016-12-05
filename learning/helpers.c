@@ -1552,13 +1552,13 @@ static PyObject *__pyx_codeobj__19;
  * 
  * 
  * def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):             # <<<<<<<<<<<<<<
- *     """Aditive Update.
+ *     """Additive Update.
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_3NGP_8learning_7helpers_1AU(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_3NGP_8learning_7helpers_AU[] = "Aditive Update.\n\n    Regular AU calculations, component-wise.\n    More info: https://gradeprocessing.herokuapp.com/info/\n    ";
+static char __pyx_doc_3NGP_8learning_7helpers_AU[] = "Additive Update.\n\n    Regular AU calculations, component-wise.\n    More info: https://gradeprocessing.herokuapp.com/info/\n    ";
 static PyMethodDef __pyx_mdef_3NGP_8learning_7helpers_1AU = {"AU", (PyCFunction)__pyx_pw_3NGP_8learning_7helpers_1AU, METH_VARARGS|METH_KEYWORDS, __pyx_doc_3NGP_8learning_7helpers_AU};
 static PyObject *__pyx_pw_3NGP_8learning_7helpers_1AU(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_X = 0;
@@ -2117,7 +2117,7 @@ static PyObject *__pyx_pf_3NGP_8learning_7helpers_AU(CYTHON_UNUSED PyObject *__p
  * 
  * 
  * def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):             # <<<<<<<<<<<<<<
- *     """Aditive Update.
+ *     """Additive Update.
  * 
  */
 
@@ -6108,7 +6108,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):             # <<<<<<<<<<<<<<
- *     """Aditive Update.
+ *     """Additive Update.
  * 
  */
   __pyx_tuple__14 = PyTuple_Pack(12, __pyx_n_s_X, __pyx_n_s_W, __pyx_n_s_H, __pyx_n_s_alpha, __pyx_n_s_beta, __pyx_n_s_gamma, __pyx_n_s_alternate, __pyx_n_s_R, __pyx_n_s_eij, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_r); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 12, __pyx_L1_error)
@@ -6289,7 +6289,7 @@ PyMODINIT_FUNC PyInit_helpers(void)
  * 
  * 
  * def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[DTYPE_t, ndim=2] H, double alpha, double beta, double gamma, int alternate, int R):             # <<<<<<<<<<<<<<
- *     """Aditive Update.
+ *     """Additive Update.
  * 
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_3NGP_8learning_7helpers_1AU, NULL, __pyx_n_s_NGP_learning_helpers); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
