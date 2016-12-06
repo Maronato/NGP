@@ -1,0 +1,316 @@
+{
+    "name": "flare",
+    "children": [{
+        "name": "Feature 0",
+        "children": [{
+            "name": "Calculus 1",
+            "size": 0.0136602871713
+        }, {
+            "name": "Calculus 2  (2.5)",
+            "size": 2.49877595431
+        }, {
+            "name": "Calculus 3  (2.3)",
+            "size": 2.29469135902
+        }, {
+            "name": "Calculus 4  (0.2)",
+            "size": 0.182513952592
+        }, {
+            "name": "Physics 1  (0.5)",
+            "size": 0.501071821039
+        }, {
+            "name": "Physics 2",
+            "size": 0.00131965181765
+        }, {
+            "name": "Physics 3  (3.2)",
+            "size": 3.1610586773
+        }, {
+            "name": "Physics 4  (0.1)",
+            "size": 0.0564787939791
+        }, {
+            "name": "Programming 1  (0.5)",
+            "size": 0.500990821157
+        }, {
+            "name": "Programming 2",
+            "size": 0.0141071967864
+        }, {
+            "name": "Analytic Geometry  (1.8)",
+            "size": 1.75551160358
+        }, {
+            "name": "Linear Algebra  (1.0)",
+            "size": 1.00427839216
+        } ]
+    }, {
+        "name": "Feature 1",
+        "children": [{
+            "name": "Calculus 1  (2.6)",
+            "size": 2.64940953846
+        }, {
+            "name": "Calculus 2  (2.4)",
+            "size": 2.41291169947
+        }, {
+            "name": "Calculus 3  (2.6)",
+            "size": 2.60941191271
+        }, {
+            "name": "Calculus 4",
+            "size": 0.00586594697224
+        }, {
+            "name": "Physics 1",
+            "size": 0.00577573055529
+        }, {
+            "name": "Physics 2",
+            "size": 0.00122488209767
+        }, {
+            "name": "Physics 3",
+            "size": 0.00779191291091
+        }, {
+            "name": "Physics 4  (0.8)",
+            "size": 0.779626793823
+        }, {
+            "name": "Programming 1  (4.8)",
+            "size": 4.84466935501
+        }, {
+            "name": "Programming 2  (4.6)",
+            "size": 4.60004919296
+        }, {
+            "name": "Analytic Geometry  (0.4)",
+            "size": 0.407859426138
+        }, {
+            "name": "Linear Algebra",
+            "size": 0.00636864241328
+        } ]
+    }, {
+        "name": "Feature 2",
+        "children": [{
+            "name": "Calculus 1  (4.2)",
+            "size": 4.20456326753
+        }, {
+            "name": "Calculus 2  (2.0)",
+            "size": 1.96692713956
+        }, {
+            "name": "Calculus 3  (1.2)",
+            "size": 1.24225029168
+        }, {
+            "name": "Calculus 4",
+            "size": 0.00427840697259
+        }, {
+            "name": "Physics 1  (3.6)",
+            "size": 3.61820392481
+        }, {
+            "name": "Physics 2  (1.5)",
+            "size": 1.53360327334
+        }, {
+            "name": "Physics 3",
+            "size": 0.00725919249651
+        }, {
+            "name": "Physics 4",
+            "size": 0.00600160961698
+        }, {
+            "name": "Programming 1",
+            "size": 0.00272783094192
+        }, {
+            "name": "Programming 2",
+            "size": 0.00914039313174
+        }, {
+            "name": "Analytic Geometry",
+            "size": 0.000827755114764
+        }, {
+            "name": "Linear Algebra  (3.9)",
+            "size": 3.91139495076
+        } ]
+    }, {
+        "name": "Feature 3",
+        "children": [{
+            "name": "Calculus 1  (2.0)",
+            "size": 2.04169740655
+        }, {
+            "name": "Calculus 2",
+            "size": 0.0184934233063
+        }, {
+            "name": "Calculus 3",
+            "size": 0.00160048274236
+        }, {
+            "name": "Calculus 4  (0.5)",
+            "size": 0.491750719628
+        }, {
+            "name": "Physics 1  (1.7)",
+            "size": 1.68939924816
+        }, {
+            "name": "Physics 2",
+            "size": 0.00186845732031
+        }, {
+            "name": "Physics 3  (1.2)",
+            "size": 1.24433007697
+        }, {
+            "name": "Physics 4  (1.2)",
+            "size": 1.18612278067
+        }, {
+            "name": "Programming 1",
+            "size": 0.00401062446337
+        }, {
+            "name": "Programming 2",
+            "size": 0.00623426810961
+        }, {
+            "name": "Analytic Geometry  (3.6)",
+            "size": 3.60213094325
+        }, {
+            "name": "Linear Algebra  (0.1)",
+            "size": 0.130709105998
+        } ]
+    }, {
+        "name": "Feature 4",
+        "children": [{
+            "name": "Calculus 1",
+            "size": 0.0158930102621
+        }, {
+            "name": "Calculus 2  (0.4)",
+            "size": 0.423320562865
+        }, {
+            "name": "Calculus 3  (0.4)",
+            "size": 0.427211784786
+        }, {
+            "name": "Calculus 4  (2.9)",
+            "size": 2.89246030089
+        }, {
+            "name": "Physics 1  (1.8)",
+            "size": 1.82557908925
+        }, {
+            "name": "Physics 2",
+            "size": 0.000681201014811
+        }, {
+            "name": "Physics 3",
+            "size": 0.0117820116162
+        }, {
+            "name": "Physics 4  (2.2)",
+            "size": 2.18202286605
+        }, {
+            "name": "Programming 1  (1.2)",
+            "size": 1.15333185393
+        }, {
+            "name": "Programming 2  (3.0)",
+            "size": 3.04141757318
+        }, {
+            "name": "Analytic Geometry  (0.3)",
+            "size": 0.29371479075
+        }, {
+            "name": "Linear Algebra  (1.9)",
+            "size": 1.91468873443
+        } ]
+    }, {
+        "name": "Feature 5",
+        "children": [{
+            "name": "Calculus 1  (1.8)",
+            "size": 1.79921983239
+        }, {
+            "name": "Calculus 2",
+            "size": 0.0174008739823
+        }, {
+            "name": "Calculus 3  (2.2)",
+            "size": 2.23825899711
+        }, {
+            "name": "Calculus 4  (2.6)",
+            "size": 2.5777228036
+        }, {
+            "name": "Physics 1  (0.3)",
+            "size": 0.312233210981
+        }, {
+            "name": "Physics 2  (2.3)",
+            "size": 2.25269596426
+        }, {
+            "name": "Physics 3  (1.6)",
+            "size": 1.56624782923
+        }, {
+            "name": "Physics 4  (2.1)",
+            "size": 2.09872059664
+        }, {
+            "name": "Programming 1",
+            "size": 0.00472970050608
+        }, {
+            "name": "Programming 2  (1.1)",
+            "size": 1.11241998418
+        }, {
+            "name": "Analytic Geometry",
+            "size": 0.00176272424554
+        }, {
+            "name": "Linear Algebra",
+            "size": 0.00297691388782
+        } ]
+    }, {
+        "name": "Feature 6",
+        "children": [{
+            "name": "Calculus 1",
+            "size": 0.019482840269
+        }, {
+            "name": "Calculus 2  (1.0)",
+            "size": 1.00939740484
+        }, {
+            "name": "Calculus 3",
+            "size": 0.000691389801245
+        }, {
+            "name": "Calculus 4",
+            "size": 0.0078882623868
+        }, {
+            "name": "Physics 1  (1.6)",
+            "size": 1.5942412618
+        }, {
+            "name": "Physics 2  (2.4)",
+            "size": 2.44162110568
+        }, {
+            "name": "Physics 3  (2.2)",
+            "size": 2.22378306834
+        }, {
+            "name": "Physics 4  (1.2)",
+            "size": 1.24549778113
+        }, {
+            "name": "Programming 1  (2.0)",
+            "size": 1.97909731726
+        }, {
+            "name": "Programming 2  (1.2)",
+            "size": 1.22249802949
+        }, {
+            "name": "Analytic Geometry  (0.2)",
+            "size": 0.189177125334
+        }, {
+            "name": "Linear Algebra",
+            "size": 0.00695058743969
+        } ]
+    }, {
+        "name": "Feature 7",
+        "children": [{
+            "name": "Calculus 1  (0.8)",
+            "size": 0.83913212409
+        }, {
+            "name": "Calculus 2  (1.6)",
+            "size": 1.5679744494
+        }, {
+            "name": "Calculus 3",
+            "size": 0.00116767962203
+        }, {
+            "name": "Calculus 4  (1.9)",
+            "size": 1.87848738593
+        }, {
+            "name": "Physics 1",
+            "size": 0.00095310399372
+        }, {
+            "name": "Physics 2  (2.9)",
+            "size": 2.86523121534
+        }, {
+            "name": "Physics 3",
+            "size": 0.013240106422
+        }, {
+            "name": "Physics 4  (1.2)",
+            "size": 1.15077437386
+        }, {
+            "name": "Programming 1  (2.4)",
+            "size": 2.39766636248
+        }, {
+            "name": "Programming 2",
+            "size": 0.0101798356097
+        }, {
+            "name": "Analytic Geometry  (3.2)",
+            "size": 3.17546335781
+        }, {
+            "name": "Linear Algebra  (3.1)",
+            "size": 3.05659688308
+        } ]
+    }]
+}

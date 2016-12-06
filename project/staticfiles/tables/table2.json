@@ -1,0 +1,328 @@
+{
+    "name": "flare",
+    "children": [{
+        "name": "Calculus 1",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.0136602871713
+        }, {
+            "name": "Feature 1  (2.6)",
+            "size": 2.64940953846
+        }, {
+            "name": "Feature 2  (4.2)",
+            "size": 4.20456326753
+        }, {
+            "name": "Feature 3  (2.0)",
+            "size": 2.04169740655
+        }, {
+            "name": "Feature 4",
+            "size": 0.0158930102621
+        }, {
+            "name": "Feature 5  (1.8)",
+            "size": 1.79921983239
+        }, {
+            "name": "Feature 6",
+            "size": 0.019482840269
+        }, {
+            "name": "Feature 7  (0.8)",
+            "size": 0.83913212409
+        } ]
+    }, {
+        "name": "Calculus 2",
+        "children": [{
+            "name": "Feature 0  (2.5)",
+            "size": 2.49877595431
+        }, {
+            "name": "Feature 1  (2.4)",
+            "size": 2.41291169947
+        }, {
+            "name": "Feature 2  (2.0)",
+            "size": 1.96692713956
+        }, {
+            "name": "Feature 3",
+            "size": 0.0184934233063
+        }, {
+            "name": "Feature 4  (0.4)",
+            "size": 0.423320562865
+        }, {
+            "name": "Feature 5",
+            "size": 0.0174008739823
+        }, {
+            "name": "Feature 6  (1.0)",
+            "size": 1.00939740484
+        }, {
+            "name": "Feature 7  (1.6)",
+            "size": 1.5679744494
+        } ]
+    }, {
+        "name": "Calculus 3",
+        "children": [{
+            "name": "Feature 0  (2.3)",
+            "size": 2.29469135902
+        }, {
+            "name": "Feature 1  (2.6)",
+            "size": 2.60941191271
+        }, {
+            "name": "Feature 2  (1.2)",
+            "size": 1.24225029168
+        }, {
+            "name": "Feature 3",
+            "size": 0.00160048274236
+        }, {
+            "name": "Feature 4  (0.4)",
+            "size": 0.427211784786
+        }, {
+            "name": "Feature 5  (2.2)",
+            "size": 2.23825899711
+        }, {
+            "name": "Feature 6",
+            "size": 0.000691389801245
+        }, {
+            "name": "Feature 7",
+            "size": 0.00116767962203
+        } ]
+    }, {
+        "name": "Calculus 4",
+        "children": [{
+            "name": "Feature 0  (0.2)",
+            "size": 0.182513952592
+        }, {
+            "name": "Feature 1",
+            "size": 0.00586594697224
+        }, {
+            "name": "Feature 2",
+            "size": 0.00427840697259
+        }, {
+            "name": "Feature 3  (0.5)",
+            "size": 0.491750719628
+        }, {
+            "name": "Feature 4  (2.9)",
+            "size": 2.89246030089
+        }, {
+            "name": "Feature 5  (2.6)",
+            "size": 2.5777228036
+        }, {
+            "name": "Feature 6",
+            "size": 0.0078882623868
+        }, {
+            "name": "Feature 7  (1.9)",
+            "size": 1.87848738593
+        } ]
+    }, {
+        "name": "Physics 1",
+        "children": [{
+            "name": "Feature 0  (0.5)",
+            "size": 0.501071821039
+        }, {
+            "name": "Feature 1",
+            "size": 0.00577573055529
+        }, {
+            "name": "Feature 2  (3.6)",
+            "size": 3.61820392481
+        }, {
+            "name": "Feature 3  (1.7)",
+            "size": 1.68939924816
+        }, {
+            "name": "Feature 4  (1.8)",
+            "size": 1.82557908925
+        }, {
+            "name": "Feature 5  (0.3)",
+            "size": 0.312233210981
+        }, {
+            "name": "Feature 6  (1.6)",
+            "size": 1.5942412618
+        }, {
+            "name": "Feature 7",
+            "size": 0.00095310399372
+        } ]
+    }, {
+        "name": "Physics 2",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.00131965181765
+        }, {
+            "name": "Feature 1",
+            "size": 0.00122488209767
+        }, {
+            "name": "Feature 2  (1.5)",
+            "size": 1.53360327334
+        }, {
+            "name": "Feature 3",
+            "size": 0.00186845732031
+        }, {
+            "name": "Feature 4",
+            "size": 0.000681201014811
+        }, {
+            "name": "Feature 5  (2.3)",
+            "size": 2.25269596426
+        }, {
+            "name": "Feature 6  (2.4)",
+            "size": 2.44162110568
+        }, {
+            "name": "Feature 7  (2.9)",
+            "size": 2.86523121534
+        } ]
+    }, {
+        "name": "Physics 3",
+        "children": [{
+            "name": "Feature 0  (3.2)",
+            "size": 3.1610586773
+        }, {
+            "name": "Feature 1",
+            "size": 0.00779191291091
+        }, {
+            "name": "Feature 2",
+            "size": 0.00725919249651
+        }, {
+            "name": "Feature 3  (1.2)",
+            "size": 1.24433007697
+        }, {
+            "name": "Feature 4",
+            "size": 0.0117820116162
+        }, {
+            "name": "Feature 5  (1.6)",
+            "size": 1.56624782923
+        }, {
+            "name": "Feature 6  (2.2)",
+            "size": 2.22378306834
+        }, {
+            "name": "Feature 7",
+            "size": 0.013240106422
+        } ]
+    }, {
+        "name": "Physics 4",
+        "children": [{
+            "name": "Feature 0  (0.1)",
+            "size": 0.0564787939791
+        }, {
+            "name": "Feature 1  (0.8)",
+            "size": 0.779626793823
+        }, {
+            "name": "Feature 2",
+            "size": 0.00600160961698
+        }, {
+            "name": "Feature 3  (1.2)",
+            "size": 1.18612278067
+        }, {
+            "name": "Feature 4  (2.2)",
+            "size": 2.18202286605
+        }, {
+            "name": "Feature 5  (2.1)",
+            "size": 2.09872059664
+        }, {
+            "name": "Feature 6  (1.2)",
+            "size": 1.24549778113
+        }, {
+            "name": "Feature 7  (1.2)",
+            "size": 1.15077437386
+        } ]
+    }, {
+        "name": "Programming 1",
+        "children": [{
+            "name": "Feature 0  (0.5)",
+            "size": 0.500990821157
+        }, {
+            "name": "Feature 1  (4.8)",
+            "size": 4.84466935501
+        }, {
+            "name": "Feature 2",
+            "size": 0.00272783094192
+        }, {
+            "name": "Feature 3",
+            "size": 0.00401062446337
+        }, {
+            "name": "Feature 4  (1.2)",
+            "size": 1.15333185393
+        }, {
+            "name": "Feature 5",
+            "size": 0.00472970050608
+        }, {
+            "name": "Feature 6  (2.0)",
+            "size": 1.97909731726
+        }, {
+            "name": "Feature 7  (2.4)",
+            "size": 2.39766636248
+        } ]
+    }, {
+        "name": "Programming 2",
+        "children": [{
+            "name": "Feature 0",
+            "size": 0.0141071967864
+        }, {
+            "name": "Feature 1  (4.6)",
+            "size": 4.60004919296
+        }, {
+            "name": "Feature 2",
+            "size": 0.00914039313174
+        }, {
+            "name": "Feature 3",
+            "size": 0.00623426810961
+        }, {
+            "name": "Feature 4  (3.0)",
+            "size": 3.04141757318
+        }, {
+            "name": "Feature 5  (1.1)",
+            "size": 1.11241998418
+        }, {
+            "name": "Feature 6  (1.2)",
+            "size": 1.22249802949
+        }, {
+            "name": "Feature 7",
+            "size": 0.0101798356097
+        } ]
+    }, {
+        "name": "Analytic Geometry",
+        "children": [{
+            "name": "Feature 0  (1.8)",
+            "size": 1.75551160358
+        }, {
+            "name": "Feature 1  (0.4)",
+            "size": 0.407859426138
+        }, {
+            "name": "Feature 2",
+            "size": 0.000827755114764
+        }, {
+            "name": "Feature 3  (3.6)",
+            "size": 3.60213094325
+        }, {
+            "name": "Feature 4  (0.3)",
+            "size": 0.29371479075
+        }, {
+            "name": "Feature 5",
+            "size": 0.00176272424554
+        }, {
+            "name": "Feature 6  (0.2)",
+            "size": 0.189177125334
+        }, {
+            "name": "Feature 7  (3.2)",
+            "size": 3.17546335781
+        } ]
+    }, {
+        "name": "Linear Algebra",
+        "children": [{
+            "name": "Feature 0  (1.0)",
+            "size": 1.00427839216
+        }, {
+            "name": "Feature 1",
+            "size": 0.00636864241328
+        }, {
+            "name": "Feature 2  (3.9)",
+            "size": 3.91139495076
+        }, {
+            "name": "Feature 3  (0.1)",
+            "size": 0.130709105998
+        }, {
+            "name": "Feature 4  (1.9)",
+            "size": 1.91468873443
+        }, {
+            "name": "Feature 5",
+            "size": 0.00297691388782
+        }, {
+            "name": "Feature 6",
+            "size": 0.00695058743969
+        }, {
+            "name": "Feature 7  (3.1)",
+            "size": 3.05659688308
+        } ]
+    }]
+}

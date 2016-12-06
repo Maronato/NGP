@@ -1,0 +1,32 @@
+/*
+ * Globals
+ */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    color: #333;
+}
+
+
+/*
+ * Footer
+ */
+
+.site-footer {
+    margin-top: 50px;
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+.site-footer p:last-child {
+    margin-bottom: 0;
+}
