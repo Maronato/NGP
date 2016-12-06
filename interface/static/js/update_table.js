@@ -1,4 +1,6 @@
 function update_table(table, resp, feat) {
+
+    // This functions takes a table id, the server's predicted response and a number of features and loads the response onto the table
     var html = ""
     for (row in resp) {
         students = ["Timmy", "Bob", "Marle", "John"];
@@ -24,6 +26,10 @@ function update_table(table, resp, feat) {
 };
 
 function update_head(table, type, features) {
+
+    // This helper function takes a table id, the type of table and a number of features and generates the table head.
+    // The tables can be of two types: 1 and else.
+    // Tables of type 1 have courses as the head and of type else, features.
     var html = "";
     header = ["Student", "English", "History", "Math"];
     if (type == 1) {

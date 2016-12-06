@@ -27,6 +27,7 @@ def AU(np.ndarray[DTYPE_t, ndim=2] X, np.ndarray[DTYPE_t, ndim=2] W, np.ndarray[
                 for r in range(R):
 
                     # Switch between W and H
+                    # This is the trick mentioned in the Math and Design page of the website. Pretty simple, huh?
                     if alternate == 1:
                         W[i][r] = abs(W[i][r] + alpha * (2 * eij * H[r][j] - beta * W[i][r]))
                     else:
