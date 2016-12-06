@@ -7,8 +7,8 @@ https://gradeprocessing.herokuapp.com/info/
 
 
 Disclaimer:
-The math that I used is based on the amazing works of Nicolas Gillis[1], Prem Melville, Vikas Sindhwani[2], Albert Au Yeung[3], Daniel D. Lee and H. Sebastian Seung[4] and various others that you'll find throughout the document.
-My focus with this project was to understand the math well enough to create my own implementation and even make it better or faster if possible, and I think I succeeded at both endeavors.
+The math that I used is based on the amazing works of Nicolas Gillis[1], Prem Melville, Vikas Sindhwani[2], Albert Au Yeung[3], Daniel D. Lee and H. Sebastian Seung[4].
+My focus with this project was to understand the math well enough to create my own implementation and even make it better or faster if possible.
 
 
 Introduction and motivations:
