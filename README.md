@@ -13,7 +13,7 @@ It has essentially 4 pages:
 * Home
 * W and H
 * Design and Math
-* Statistcs
+* Statistics
 
 The home page explains the motivations behind the project and contain a simulation of the algorithm that can generate real-time predictions.
 
