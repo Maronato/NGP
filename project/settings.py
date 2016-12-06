@@ -131,3 +131,31 @@ STATICFILES_DIRS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+ADMINS = (('Admin', os.environ.get('ADMIN_EMAIL')),)
+
+
+# E-mail host
+EMAIL_HOST = 'smtp.gmail.com'
+
+# E-mail port
+EMAIL_PORT = 587
+
+# E-mail host user
+EMAIL_HOST_USER = os.environ.get('EMAIL_ACCOUNT')
+
+# E-mail host password
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+
+# Use TLS encryption
+EMAIL_USE_TLS = True
+
+# This address is used in "from" field of emails sent by site
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ACCOUNT')
+
+# Screamer Configuration
+# Screamer is special feature that sends email to users listed under ADMINS when application
+# erros. First setting is origin of error emails, while second is message title prefix that
+# makes messages easier to spot in your inbox
+SERVER_EMAIL = os.environ.get('EMAIL_ACCOUNT')
