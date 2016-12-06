@@ -1,0 +1,106 @@
+NGP's Design Document
+https://github.com/Maronato/NGP
+
+In this design document, I'll explain my basic design choices but won't go into detail when talking about the math used in the algorithm. That'll be a pain to write and read in a txt format, so if you want to read and understand more about how NMF works, do check out the project's website where I go fairly deep into the math.
+
+https://gradeprocessing.herokuapp.com/info/
+
+
+Disclaimer:
+The math that I used is based on the amazing works of Nicolas Gillis[1], Prem Melville, Vikas Sindhwani[2], Albert Au Yeung[3], Daniel D. Lee and H. Sebastian Seung[4] and various others that you'll find throughout the document.
+My focus with this project was to understand the math well enough to create my own implementation and even make it better or faster if possible, and I think I succeeded at both endeavors.
+
+
+Introduction and motivations:
+When deciding how to approach the problem of predicting grades, I thought to myself: "Predicting grades is nothing more than selecting a value that best fits a user, right?" The user gives you some of their grades and you choose, based on their grades and the grades of others, the best one.
+That is very similar to how a Netflix predicts movie scores, even before you watch them. Reading a little bit about how Netflix does its thing[5], I decided to learn about Matrix Factorization(MF or NMF for the Non-Negative variant) and how to implement it as an unsupervised learning algorithm.
+
+I really like the idea of machine learning, but I barely know anything really deep about it, so I took this as an opportunity to get my feet wet.
+
+I started by reading some papers[6][7][8] and documents on MF and recommender systems. After a while, I realized that the idea behind it is actually fairly simple.
+
+I know that SKLearn has a very good NMF module[9], but more than just implement something that worked, I wanted to understand how it really works. What's the fun in using black boxes for everything?
+
+I decided to include the algorithms inside a class, very similar to what SKLearn does so that one could easily initialize, fit and predict values with simple methods.
+More details can be found within the code itself.
+
+To just have a command line black box didn't seem very interesting nor innovative, so I decided to create a website that'd hold detailed information about how everything works.
+
+It also presents its visitors with examples of the running algorithm and explanations about its data and uses.
+
+
+About the website:
+I use Django as its web framework and python on the backend.
+The frontend is written in HTML5, CSS and javascript. The frontend libraries are jQuery, D3.js and some other standalone libraries to make the tables work properly.
+
+It is meant to work like a blog, or something like that, to present my work in a user-friendly manner.
+
+The home page's live simulations communicate with the server using Ajax. Each table submitted is processed using the actual algorithm.
+
+The table in "W and H" is also generated using Ajax and the actual algorithm.
+
+The pretty equations on "Design and Math" are generated using the great MathJax library.
+
+Finally, the nice blob chart on "Statistics" is generated using D3.js.
+
+The website also uses Bootstrap to make things look pretty.
+
+It is hosted on Heroku and I use a Buildpack to add support for Conda, but you can host it wherever you like, given that it supports Django and Conda.
+The buildpack used is this one: https://github.com/icoxfog417/conda-buildpack.git
+
+That's pretty much it for the website. Now let's take a look at the NMF algorithm.
+
+
+About the prediction system:
+I decided to make it very simple to fit models and generate predictions from them, so I created an object-based black box similar to SKLearn's.
+
+This way all you have to do is instantiate the model, fit it and use it to generate predictions.
+
+My NMF implementation works by iterating over the elements of the data matrix(X) and generating another 2 matrices, W and H, that are the actual factorized matrices.
+
+To generate these I needed a cost function to evaluate how "close" my factorized matrices are from the ideal ones at any given point in time.
+
+My cost function is actually a squared Euclidean difference of the X matrix and the product of W and H (V).
+
+Now that I have a cost function, I can derive some methods to make the W and H matrices converge faster. The ones that I use are Additive update rules(AU) and Multiplicative update rules(MU). They are pretty easy to implement and seem to work fairly well.
+
+To make everything run faster I used Cython to compile some of the python code to C. The performance gains from this are actually pretty good. I didn't do a proper comparison, but the fit time went from minutes to seconds using my dataset.
+
+There is also a 'trick' that I think was developed by me that is able to get up to 30% faster fitting times without compromising quality when compared to regular AU and MU.
+I haven't read about something like this anywhere else, and I came up with the idea myself, so I can't say I invented it but won't say I didn't either. If you've seen that before do let me know so I can give proper credit.
+
+All of the math and the description of the 'trick' can be found here: https://gradeprocessing.herokuapp.com/info/
+
+
+About the dataset:
+This project also comes with a dataset collected by me. You can find more technical details and statistics about it here: https://gradeprocessing.herokuapp.com/stats/
+
+To make loading the data easier, I created another object that you can instantiate that contains not only the dataset but some preloaded W and H tables.
+
+With my object, I simply read the CSV file containing the data and the tables into a numpy 2D array of floats. You can then access its values as attributes.
+
+
+Project Files:
+From the root of the project, you'll find some Heroku setup files like the Procfile and app.json. You'll also find the requirements.txt file, a README.md, the documentation and design txts and Django's manage.py.
+
+You'll also find 4 folders:
+* data/ - contains the dataset and the dataset loader mentioned above(unicamp.py)
+* interface/ - is the main Django app. We'll talk more about it in a sec.
+* learning/ - is the machine learning library. It contains the NMF class (nmf.py) and the Cython-compiled helper functions. You'll also find a performance.py file used by me to do some tests.
+* project/ - is the Django config folder.
+
+Inside interface/, you'll find some other Django files. The most interesting one is views.py. Therein lies the main view functions that serve the website's pages.
+interface/'s folders are migrations/, containing the nonexistent database migrations; static/, containing the CSS, js, images and tables used by the website; templates/, containing the HTML templates of the website's 4 pages.
+
+
+References:
+[1] Nicolas Gillis, The Why and How of Nonnegative Matrix Factorization (https://arxiv.org/pdf/1401.5226v1.pdf)
+[2] Prem Melville, Vikas Sindhwani, Recommender Systems, (http://www.prem-melville.com/publications/recommender-systems-eml2010.pdf)
+[3] Albert Au Yeung, Matrix Factorization: A Simple Tutorial and Implementation in Python, (http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/)
+[4] Daniel D. Lee, H. Sebastian Seung, Algorithms for Non-negative Matrix
+Factorization, (https://papers.nips.cc/paper/1861-algorithms-for-non-negative-matrix-factorization.pdf)
+[5] Mike Masnick, Why Netflix Never Implemented The Algorithm That Won The Netflix $1 Million Challenge, (https://www.techdirt.com/blog/innovation/articles/20120409/03412518422/why-netflix-never-implemented-algorithm-that-won-netflix-1-million-challenge.shtml)
+[6] Yehuda Koren, Robert Bell, Chris Volinsky, Matrix Factorization Techniques for Recommender Systems, (http://www.columbia.edu/~jwp2128/Teaching/W4721/papers/ieeecomputer.pdf)
+[7] Yunhong Zhou, Dennis Wilkinson, Robert Schreiber, Rong Pan, Large-scale Parallel Collaborative Filtering for the Netflix Prize, (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.173.2797&rep=rep1&type=pdf)
+[8] Lei Guo, Matrix Factorization Techniques for Recommender Systems, (http://www.slideshare.net/studentalei/matrix-factorization-techniques-for-recommender-systems)
+[9] SKLearn's NMF module (http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html)
