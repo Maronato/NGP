@@ -1,8 +1,15 @@
 {
-  "name": "Natural Grade Processing",
-  "description": "",
-  "image": "",
-  "repository": "https://github.com/Maronato/NGP",
-  "keywords": ["python", "django" ],
-  "addons": [ "heroku-postgresql" ]
+    "name": "Natural Grade Processing",
+    "repository": "https://github.com/Maronato/NGP",
+    "keywords": ["python", "django"],
+    "addons": ["heroku-postgresql"],
+    "env": {
+        "SECRET_KEY": {
+            "description": "Django's secret key",
+            "value": "42IAMASECRETANDYOUSHOULDPROBABLYCHANGEMYVALUE42"
+        }
+    },
+    "buildpacks": [{
+        "url": "https://github.com/conda/conda-buildpack.git"
+    }]
 }
