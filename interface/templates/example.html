@@ -2,6 +2,8 @@
 {% block extend_scripts %}
 <script>
     $(document).ready(function() {
+
+        // When the document loads, use ajax to get predictions of values in #table and then load them onto #PredTable
         var table = $('#table').tableToJSON();
         var features = 2
         var eC = 0.001

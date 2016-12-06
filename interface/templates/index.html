@@ -1,4 +1,6 @@
 {% extends "base.html" %} {% load staticfiles %} {% block content %}
+
+<!-- The html here is pretty straightfoward so no need to comment every line -->
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
         <h1> NGP </h1>
@@ -261,13 +263,16 @@
 </div>
 
 <script>
+    // Initialize the editableTableWidget
     $('#table').editableTableWidget();
+    // Create validation rules (0 to 10 + '?')
     $('table td').on('validate', function(evt, newValue) {
         if ((newValue > 10 || isNaN(newValue) || newValue < 0 || newValue == "") && newValue != "?") {
             return false; // mark cell as invalid
         };
     });
 
+    // Function that talks to the server using ajax and generates predictions for the X matrix
     function predict() {
         var table = $('#table').tableToJSON();
         var features = $('#R option:selected').text();

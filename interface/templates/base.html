@@ -2,18 +2,20 @@
 <html>
 
 <head>
+	<!-- Load project's staticfiles -->
 	{% load staticfiles %}
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="Natural Grade Processing">
+	<meta name="author" content="Maronato">
 
 	<title>NGP</title>
 
 
 	<!-- Bootstrap core CSS -->
+	<!-- I load both bootstrap 4 and 3 because bootstrap 4 breaks some stuff in my code but I still want to use its cool colored navbars and tables -->
+	<!-- The pages are pretty lightweight so I can afford it -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -40,7 +42,7 @@
 	<!-- Page style -->
 	{% block extend_style %}{% endblock %}
 
-	<!-- Custom styles for this template -->
+	<!-- Custom styles for this template that aren't really used but could be in the future -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -65,6 +67,7 @@
 </head>
 
 <body>
+	<!-- The navbar -->
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 		<div class="container">
 			<div class="navbar-header">
@@ -83,18 +86,18 @@
 						</a>
 					</li>
 					<li>
-						<a href="/stats/">
-							Statistics
+						<a href="/example/">
+							W and H
 						</a>
 					</li>
 					<li>
 						<a href="/info/">
-							Info
+							Design and Math
 						</a>
 					</li>
 					<li>
-						<a href="/docs/">
-							Docs
+						<a href="/stats/">
+							Statistics
 						</a>
 					</li>
 				</ul>
@@ -102,8 +105,10 @@
 		</div>
 	</nav>
 
-
+	<!-- Pages displayed here -->
 	{% block content %}{% endblock %}
+
+	<!-- Footer -->
 	<footer class="site-footer col-md-12">
 		<p>
 			CS50's Final Project

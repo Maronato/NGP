@@ -1,9 +1,12 @@
 {% extends "base.html" %} {% load staticfiles %} {% block extend_scripts %}
+
+<!-- Load D3 and helper scripts -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="{% static 'js/circle_packing.js'%}"></script>
-<script src="{% static 'js/pie_chart.js'%}"></script>
 <script src="{% static 'js/update_stats.js'%}"></script>
 {% endblock %} {% block extend_style %}
+
+<!-- Load chart stylesheet -->
 <link href="{% static 'css/circle_packing.css' %}" rel="stylesheet"> {% endblock %} {% block content %}
 
 <div class="container">
@@ -186,8 +189,9 @@
     </div>
 </div>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
+
+    // Little script that loads the two tables' paths and changes from one to another when the "Change Chart" button is clicked
     var curr_chart = 0;
     chart_tables = ["{% static 'tables/table1.json' %}", "{% static 'tables/table2.json' %}"]
 
