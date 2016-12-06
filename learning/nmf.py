@@ -69,8 +69,7 @@ class NMF:
         beta: regularizing variable for W
         gamma: regularizing variable for H
         eC: minimum error required
-        W: feature weights, users
-        H: feature weights, items
+        alg: which algorithm to start with
         """
         # sets instance vars
         self.R = R
@@ -89,6 +88,7 @@ class NMF:
         alternate = 1
 
         # Switch threshold
+        # used to decide when to switch algorithms
         switch_threshold = (self.eC ** 2) * X.size / 200
 
         # benchmark
@@ -101,7 +101,7 @@ class NMF:
             if alternate == 1:
                 e = cost(X, self.W, self.H, self.beta, self.gamma, self.R)
             if step == 0:
-                # Keep track of previous error
+                # Manually set the first prev_e so that it is always bigger than e
                 prev_e = e + 100
 
             # if the error is less than the stopping point, break
