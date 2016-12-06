@@ -192,111 +192,112 @@ class NMF:
         return np.dot(self.W, self.H)
 
 
-class NB_CF():
-    """Neighborhood-Based Collaborative Filtering.
-
-    This is pretty much useless with my dataset
-    but was easy to make, so why not
-
-    Usage:
-        from Data import Unicamp
-        from Fun.ML import NB_CF
-        u = Unicamp.load()
-        model = NB_CF()
-        active = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
-        model.fit(active, u.dataset)
-        model.predict(0)
-    """
-
-    def __init__(self):
-        pass
-
-    def fit(self, active, dataset, n_neighbors=20):
-        """Fit method.
-
-        Parameters:
-        ----------
-        active: user to be predicted
-        dataset: dataset with all users
-        n_neighbors: number of closest neighbors to use in prediction
-        """
-        self.dataset = dataset
-        self.active = active
-
-        # calculate the Pearson correlation between every database user and active
-        self.calc_correlation()
-
-        # dirty way to append the correlation to the database.
-        frame = pd.DataFrame(dataset)
-        correlation = pd.DataFrame(self.correlation)
-        frame['correlation'] = correlation
-        frame = frame.sort_values(by=['correlation'], ascending=False)[:n_neighbors]
-        self.neighbors = frame.as_matrix()
-        return
-
-    def predict(self, item):
-        """Predict method.
-
-        Parameters:
-        ----------
-        item : index of the item to be predicted for the fitted user
-
-        Returns:
-        --------
-        prediction (float)
-        """
-
-        def n_mean(user):
-            # returns the mean of the user's grades(only the ones > 0)
-            return np.array([x for x in user[:-1] if x > 0]).mean()
-
-        def sum_W(neighbors):
-            # sum of the neighbors' correlations
-            return np.array([x[-1] for x in neighbors]).sum()
-
-        def weighted_avg(neighbor, item):
-            # weighted average grade of a given neighbor
-            # w_avg = ((neighbor's grade on item) - (neighbor's mean)) * (neighbor's correlation)
-            if neighbor[item] == 0:
-                return 0
-            return (neighbor[item] - n_mean(neighbor)) * neighbor[-1]
-
-        def prediction(item):
-            # calculate the weighted average of every neighbor, sum it all
-            # divide by the sum of the correlations and then add the active user's mean
-
-            pred = 0
-            for neighbor in self.neighbors:
-                pred = pred + weighted_avg(neighbor, item)
-
-            pred = n_mean(self.active) + pred / sum_W(self.neighbors)
-
-            return pred
-
-        # Return the prediction for the item
-        return prediction(item)
-
-    def calc_correlation(self):
-        # Uses scipy's pearson correlation. Might create my own to achieve better results
-
-        # indexes of the active's graded items
-        items_active = [counter for counter, item in enumerate(self.active) if item > 0]
-
-        corr = []
-        for user in self.dataset:
-            # indexes of the user's graded items
-            items_user = [counter for counter, item in enumerate(user) if item > 0]
-            # indexes that both active and user have in common
-            items_both = [counter for counter in items_user if counter in items_active]
-            # actual items that active and user have in common
-            active_items = [item for counter, item in enumerate(self.active) if counter in items_both]
-            user_items = [item for counter, item in enumerate(user) if counter in items_both]
-            # calculate the correlation
-            new_corr = pearsonr(active_items, user_items)
-            # if there are too few items in commom, or if the correlation is NaN, set it as 0
-            if len(active_items) <= 1 or np.isnan(new_corr[0]):
-                new_corr = 0, 1
-
-            # append the correlation to the list
-            corr.append(new_corr[0])
-        self.correlation = corr
+# class NB_CF():
+#     """Neighborhood-Based Collaborative Filtering.
+#
+#     This is just an 'easter egg'. It is not used by anything elsewhere and I did it just because it was pretty easy to do, so why not put it here as well.
+#     It is commented out, so I dont expect to have this part of the code graded.
+#     If you want to test it out, be my guest!
+#
+#     Usage:
+#         from data import unicamp
+#         from learning.nmf import NB_CF
+#         u = unicamp.load()
+#         model = NB_CF()
+#         active = [10, 5, 0, 6, 9, 8, 6, 5, 8, 9, 8, 6]
+#         model.fit(active, u.dataset)
+#         model.predict(2)
+#     """
+#
+#     def __init__(self):
+#         pass
+#
+#     def fit(self, active, dataset, n_neighbors=20):
+#         """Fit method.
+#
+#         Parameters:
+#         ----------
+#         active: user to be predicted
+#         dataset: dataset with all users
+#         n_neighbors: number of closest neighbors to use in prediction
+#         """
+#         self.dataset = dataset
+#         self.active = active
+#
+#         # calculate the Pearson correlation between every database user and active
+#         self.calc_correlation()
+#
+#         # dirty way to append the correlation to the database.
+#         frame = pd.DataFrame(dataset)
+#         correlation = pd.DataFrame(self.correlation)
+#         frame['correlation'] = correlation
+#         frame = frame.sort_values(by=['correlation'], ascending=False)[:n_neighbors]
+#         self.neighbors = frame.as_matrix()
+#         return
+#
+#     def predict(self, item):
+#         """Predict method.
+#
+#         Parameters:
+#         ----------
+#         item : index of the item to be predicted for the fitted user
+#
+#         Returns:
+#         --------
+#         prediction (float)
+#         """
+#
+#         def n_mean(user):
+#             # returns the mean of the user's grades(only the ones > 0)
+#             return np.array([x for x in user[:-1] if x > 0]).mean()
+#
+#         def sum_W(neighbors):
+#             # sum of the neighbors' correlations
+#             return np.array([x[-1] for x in neighbors]).sum()
+#
+#         def weighted_avg(neighbor, item):
+#             # weighted average grade of a given neighbor
+#             # w_avg = ((neighbor's grade on item) - (neighbor's mean)) * (neighbor's correlation)
+#             if neighbor[item] == 0:
+#                 return 0
+#             return (neighbor[item] - n_mean(neighbor)) * neighbor[-1]
+#
+#         def prediction(item):
+#             # calculate the weighted average of every neighbor, sum it all
+#             # divide by the sum of the correlations and then add the active user's mean
+#
+#             pred = 0
+#             for neighbor in self.neighbors:
+#                 pred = pred + weighted_avg(neighbor, item)
+#
+#             pred = n_mean(self.active) + pred / sum_W(self.neighbors)
+#
+#             return pred
+#
+#         # Return the prediction for the item
+#         return prediction(item)
+#
+#     def calc_correlation(self):
+#         # Uses scipy's pearson correlation. Might create my own to achieve better results
+#
+#         # indexes of the active's graded items
+#         items_active = [counter for counter, item in enumerate(self.active) if item > 0]
+#
+#         corr = []
+#         for user in self.dataset:
+#             # indexes of the user's graded items
+#             items_user = [counter for counter, item in enumerate(user) if item > 0]
+#             # indexes that both active and user have in common
+#             items_both = [counter for counter in items_user if counter in items_active]
+#             # actual items that active and user have in common
+#             active_items = [item for counter, item in enumerate(self.active) if counter in items_both]
+#             user_items = [item for counter, item in enumerate(user) if counter in items_both]
+#             # calculate the correlation
+#             new_corr = pearsonr(active_items, user_items)
+#             # if there are too few items in commom, or if the correlation is NaN, set it as 0
+#             if len(active_items) <= 1 or np.isnan(new_corr[0]):
+#                 new_corr = 0, 1
+#
+#             # append the correlation to the list
+#             corr.append(new_corr[0])
+#         self.correlation = corr
