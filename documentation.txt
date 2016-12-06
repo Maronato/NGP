@@ -1,0 +1,237 @@
+NGP's Documentation
+https://gradeprocessing.herokuapp.com/
+
+NGP has a website but the algorithm can be used using regular python through the command line. This documentation is going to explain how to set up both of them.
+
+Contents
+Part 0 - Setting up the environment
+* Requirements
+* virtualenv
+* Compiling the helpers
+
+Part 1 - The Website:
+* About the website
+* About the pages
+* Using the interactive simulation
+* Deploying the website on Heroku
+* Running the website locally
+
+Part 2 - Command line predictions
+* Loading the dataset
+* Instantiating the class
+* Methods and attributes
+* Using it with preloaded data
+* Using it with new data
+
+
+# Part 0:
+## Requirements
+
+Firstly you'll need Python 3.x.
+You can get it for free here: https://www.python.org/
+
+Next, I recommend that you get virtualenv as well. It is not required, but it is nice to have. Get it here: https://virtualenv.pypa.io/en/stable/
+
+The rest of the requirements are in the requirements.txt file.
+
+If you just want to use the command line part of the program you won't need all of the requirements, just the following:
+* Numpy
+* Scipy
+* Pandas
+* Cython
+
+## virtualenv
+
+If you want to use virtualenv, that's how you can get your system ready for everything:
+
+Start by opening a terminal window in the project's root folder.
+Then run:
+
+$ virtualenv -p python3 venv
+
+To create a virtual environment with python 3.
+Then activate it and install the requirements:
+
+$ source venv/bin/activate
+$ pip3 install -r requirements.txt
+
+This should take care of almost everything setup-wise.
+
+## Compiling the helpers
+
+The final setup step is compiling the helpers.
+You might not need to do this step if you're on Mac OS or Linux, but it's pretty quick so why not.
+
+To compile, 'cd' your way to /learning and then execute 'setup.py' using the following commands:
+
+$ cd learning
+$ python3 setup.py build_ext --inplace
+
+You can ignore the warnings.
+
+A new '.so' file should be located at
+'/learning/NGP/learning'
+Just copy it and paste it into
+'/learning'
+
+You'll know it's the right folder because there are other '.so' files there already.
+
+Done!
+
+
+# Part 1
+## About the website
+
+The project's main selling point is the website that offers in-depth information about the algorithms used and easy-to-use simulations and explanations.
+You can find it right here: https://gradeprocessing.herokuapp.com/
+
+## About the pages
+
+It has essentially 4 pages:
+
+* Home
+* W and H
+* Design and Math
+* Statistics
+
+The home page explains the motivations behind the project and contains a simulation of the algorithm that can generate real-time predictions.
+
+W and H contain another example table but focus on explaining what is the meaning behind the `H` and `W` tables used by the algorithm
+
+Design and Math is an in-depth explanation of the design choices and the math that powers NMFs. It is also filled with links to the literature used by me when coding the algorithm.
+
+Statistics is an overview of the dataset collected by me and an analysis of the results collected with the algorithm.
+
+## Using the interactive simulation
+
+To use the interactive simulation go to Home and you'll find a Blue table.
+Right by the table you'll find some instructions as an example that will help you understand what the algorithm can do.
+
+If you don't want to follow the example or just go straight to the interactive part, every cell on the blue table is editable. Just click it and modify its values.
+The values can be anywhere from 0 to 10 and '?'. 0s and '?'s are interpreted as unknown values and the algorithm is going to try to predict those.
+
+Remember that the table is rather small, so the algorithm may find it difficult to predict some complex patterns but do try them anyway!
+
+## Deploying the website on Heroku
+
+To deploy the website on Heroku is pretty simple.
+Go to the project's GitHub (https://github.com/Maronato/NGP) and find the "Deploy to Heroku" button in the Readme.
+
+Click it.
+Done!
+
+## Running the website locally
+
+To run the website locally using Django's server, execute the following command from the project's root:
+
+$ python3 manage.py runserver
+
+and then open the website on the created port.
+That's it!
+
+
+# Part 2
+
+All of the commands used from now on shall be executed from Python's shell.
+You can, of course, write programs to run these if you want.
+
+## Loading the dataset
+
+A dataset was included with the program.
+To load it, open a shell in the project's root and do:
+
+$ from data import unicamp
+$ dataset = unicamp.load()
+
+Now you have access to 3 attributes of this dataset: The data itself, a preloaded W table and a preloaded H table.
+
+To access them, do
+
+$ dataset.data
+$ dataset.W
+$ dataset.H
+
+## Instantiating the class
+
+The algorithm was coded to work as an object that you can instantiate.
+To do that:
+
+$ from learning.nmf import NMF
+$ model = NMF()
+
+Then all you need to do is call its methods
+
+## Methods and attributes
+
+When instantiating the object you have 3 optional parameters:
+W: preloaded W table
+H: preloaded H table
+verbose: Boolean value that enables some verbose benchmarking
+
+Once instantiated, you can call 3 methods:
+
+.fit(X, R[, steps, alpha, beta, gamma, eC, alg])
+Parameters
+----------
+X: dataset(matrix) to be factorized
+R: number of features to find
+steps: maximum iterations to be performed when trying to minimize the distance between X and W.H
+alpha: rate of approaching the minimum distance
+beta: regularizing variable for W
+gamma: regularizing variable for H
+eC: minimum error required
+alg: which algorithm to start with
+
+
+.predict(X[, steps, alpha, beta, gamma, eC])
+Parameters
+----------
+X: 2D array of float values(can also handle 1D arrays). Has to have the same number of columns as the matrix used to fit the model. Use 0s to indicate values to be predicted.
+steps: maximum iterations to be performed when trying to minimize the distance between X and W.H
+alpha: rate of approaching the minimum distance
+beta: regularizing variable for W
+gamma: regularizing variable for H
+eC: minimum error required
+
+Returns:
+--------
+numpy array with predicted values
+
+.get_V()
+Returns:
+--------
+numpy array representing the matrix V of the whole dataset.
+
+
+The model also has some attributes:
+.H : The H table encountered
+.W : The W table encountered
+.error_fit : The final result of the fitting cost function
+.error_predict : The final result of the predicting cost function
+
+
+## Using it with preloaded data
+
+To use it with the preloaded data:
+
+$ from data import unicamp
+$ from learning.nmf import NMF
+$ u = unicamp.load()
+$ model = NMF(u.W, u.H)
+$ test = [10., 0., 7., 0., 9., 0., 6., 5., 7., 8., 8., 6.]
+$ model.predict(test)
+
+
+## Using it with new data
+
+You can use any dataset so I'll use mine for simplicity:
+
+$ from data import unicamp
+$ from learning.nmf import NMF
+$ u = unicamp.load()
+$ model = NMF()
+$ model.fit(u.data, 2, alg=1)
+$ test = [10., 0., 7., 6., 9., 0., 6., 5., 7., 8., 8., 6.]
+$ model.predict(test)
+
+That's all there is to it!
