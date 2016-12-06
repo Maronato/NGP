@@ -10,6 +10,6 @@
         }
     },
     "buildpacks": [{
-        "url": "https://github.com/conda/conda-buildpack.git"
+        "url": "https://github.com/icoxfog417/conda-buildpack.git"
     }]
 }
