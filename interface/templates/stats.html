@@ -13,11 +13,11 @@
     <div class="col-md-8 col-md-offset-2">
         <h2> What is this about </h2>
         <p>
-            To go along with the algorithm developed, I decided to gather some data and use it to test the algorithm with.
+            To go along with the algorithm developed, I decided to gather some data and use it to test it with.
             <br> Since it runs on known <a href="/info/">mathematics</a>, it should work well with whatever good dataset you throw at it, only needing some tweaks and feature selection.
         </p>
         <p>
-            This section, then, is only to show some of my results and should not be taken seriously since, as you'll see below, the dataset that I've collected is not of very high quality.
+            This section, then, is only to show some of my results and should not be taken seriously since, as you'll see below, the dataset that I've collected is very small and lacks some implicit information about the students that'd be required to generate good predictions.
         </p>
         <h2> The dataset </h2>
         <p>
@@ -30,7 +30,7 @@
             <br> The courses are Calculus 1 through 4, Physics 1 through 4, Programming 1 and 2, Analytic Geometry and Linear Algebra, in order.
         </p>
         <p>
-            The dataset is fairly sparse, with 37% of the values being unknown, but that's expected since most students didn't take every class
+            The dataset is fairly sparse, with 37% of the values being unknown, but that's expected since most students didn't take every class.
         </p>
         <p>
             Below you can find some statistics about the dataset.
@@ -60,7 +60,7 @@
             </tbody>
         </table>
         <p>
-            As you can see, barely any student took courses like Physics and Calculus 4, which makes the dataset a little less reliable, especially when evaluating grades from these courses.
+            As you can see, barely any student took courses like Physics and Calculus 4, which makes the predictions, especially of these courses, a little less reliable.
         </p>
         <p>
             Below we can see the percentage of students that took exactly N courses.
@@ -110,11 +110,14 @@
             We can also argue that most of them are majoring in something related to math or engineering since these courses are usually taught on those majors only.
         </p>
         <p>
-
-        <p>
             The purpose of this page is less about the analysis of dataset and more about NMF, so let's jump to the results.
         </p>
         <h2> The results </h2>
+        <p>
+            Firstly I should point out that in order to generate accuarate predictions, especially with something so 'subjective' as grades, the dataset would need to be larger and have other kinds of information about the students, like hours of study per week per class, year that the course was taken, etc. This extra data would help during the classification of the students and would allow for better-defined features. The algorithm used could very much be the same, but the results would certainly be better.
+            <br>
+            Now, moving on to the results
+        </p>
         <p>
             To discover what would be the number of features that best describes the dataset, I ran a cross-validation test using 20% of the dataset as the test set.
             <br> To simulate the prediction of grades, I selected a random known grade from every student in the test set and compared it to the prediction generated from a model trained using the other 80% of the dataset.
@@ -144,16 +147,18 @@
             </tbody>
         </table>
         <p>
-            The percentage is not so good, but I wouldn't blame the algorithm for it.<br> My method of collecting the dataset makes it prone to have a lot of noise and wrong data since the students' input is not guaranteed to be right. Besides that,
-            I didn't collect any additional information that could be used as bias or to better define student's profiles.
+            We can see that 8 features seem to be the right amount for this dataset.
+        </p>
+        <p>
+            The percentage is not so good, but I believe the cause for this is explained by the size and quality of the dataset.
         </p>
         <p>
             More analysis would be needed to better judge the global performance of the algorithm.
-            <br> Using better datasets would be an option that I'll explore after the project's deadline.
-            <br> I also plan on comparing my algorithm to other known algorithms to better evaluate its performance.
+            <br> Using better datasets is an option that I'll explore after the project's deadline.
+            <br> I also plan on comparing my algorithm to other known methods to better evaluate its performance.
         </p>
         <p>
-            Now that we acknowledge the problems mentioned above, let's look at the <code>H</code> table found because why not.
+            Now that we acknowledge the problems mentioned above, let's look at the <code>H</code> table found.
         </p>
         <h3>More numbers</h3>
         <p>

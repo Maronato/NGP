@@ -19,14 +19,8 @@
         <p>
             The math that I used is based on the amazing works of <a href="https://arxiv.org/pdf/1401.5226v1.pdf">Nicolas Gillis</a>, <a href="http://www.prem-melville.com/publications/recommender-systems-eml2010.pdf">Prem Melville, Vikas Sindhwani</a>,
             <a href="http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/">Albert Au Yeung</a>, <a href="https://papers.nips.cc/paper/1861-algorithms-for-non-negative-matrix-factorization.pdf">Daniel D. Lee and H. Sebastian Seung</a>.
-            <br> All I did was take some ideas from their papers and mix and match techniques until I figured what gives the best results with <a href="https://github.com/Maronato/NGP/blob/master/data/Original.csv" target="_blank">my dataset</a>(<a href="https://github.com/Maronato/NGP/blob/master/data/cleaned_Unicamp.csv">cleaned version</a>).
-        </p>
-        <h3>
-    About the dataset
-</h3>
-        <p>
-            As you can see from the links above, the dataset is very sparse. I got it from students from the <a href="https://en.wikipedia.org/wiki/University_of_Campinas" target="_blank">University of Campinas</a> using a very simple form from Google
-            Forms. The results probably would've been a lot better if I used a bigger and nicer dataset, but those aren't very easy to come by, especially in the format that I expected.
+            <br>
+            My focus with this project was to understand the math well enough to create my own implementation and even make it better or faster if possible.
         </p>
         <h3>
     Design choices
@@ -41,11 +35,11 @@
             I really like the idea of machine learning, but I barely know anything really deep about it, so I took this as an opportunity to get my feet wet.
         </p>
         <p>
-            I started by reading a <a href="http://www.columbia.edu/~jwp2128/Teaching/W4721/papers/ieeecomputer.pdf">lot</a> <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.173.2797&rep=rep1&type=pdf">of</a> <a href="http://www.slideshare.net/studentalei/matrix-factorization-techniques-for-recommender-systems">papers</a>            and documents on MF. After a while, I realized that the idea behind it is actually very simple.
+            I started by <a href="http://www.columbia.edu/~jwp2128/Teaching/W4721/papers/ieeecomputer.pdf">reading</a> <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.173.2797&rep=rep1&type=pdf">some</a> <a href="http://www.slideshare.net/studentalei/matrix-factorization-techniques-for-recommender-systems">papers</a>            and documents on MF. After a while, I realized that the idea behind it is actually fairly simple.
         </p>
         <p>
             I know that SKLearn has a very good <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">NMF module</a>, but more than just implement something that worked, I wanted to <i>understand</i> how it really works.
-            What's the fun in using black boxes for everything?.
+            What's the fun in using black boxes for everything?
         </p>
         <p>
             I decided to include the algorithms inside a class, very similar to what SKLearn does so that one could easily initialize, fit and predict values with simple methods.
@@ -53,7 +47,6 @@
         </p>
         <p>
             To just have a command line black box didn't seem very interesting nor innovative, so I decided to create a website(this one) that'd hold detailed information about how everything works.
-            <br> Web black box \(>\) CLI black box
             <br> It also presents its visitors with examples of the running algorithm and explanations about its data and uses.
         </p>
         <p>
@@ -66,7 +59,7 @@
             Now I'll explain the basic theory behind NMF and then present you with my implementation of it.
         </p>
         <h3>
-            NMF for dummies <small>by one of them</small>
+            NMF for noobs <small>by one of them</small>
         </h3>
         <p>
             NMF operates on the idea that there are latent features hidden within the data. It then tries to extract those features and, with them, we can recreate any point in the dataset, even the ones that don't exist yet.
@@ -176,7 +169,7 @@
             Since my dataset is sparse, we'll only use the known values in it to evaluate our matrices, so that we have the actual predictions and not just the repeated zeros on \(V\).
         </p>
         <p>
-            I realized that MU converges very fast towards the minimum, but does not get quite there. AU, on the other hand, takes some time to get near the minimum but goes much further towards it than MU.
+            I realized that MU converges very fast towards the minimum, with large datasets, but does not get quite there. AU, on the other hand, takes some time to get near the minimum but goes much further towards it than MU and works best with smaller datasets since it has a lower computational cost.
             <br> I decided, then, to use both!
             <br> MU'll go first and generate our \(W\) and \(H\) matrices very fast and, once it starts to get stuck, AU'll take it from there and finish the job.
         </p>
