@@ -158,27 +158,3 @@ To extract the whole predicted matrix `V`:
 ```
 model.get_V()
 ```
-## Neighborhood-Based Collaborative Filtering
-
-### What is
-Not so good, but very fast.
-Can be used to predict single grades of a given student.
-
-* Calculates the Pearson Correlation between a given user(the `active` user) and all the other users.
-* Selects the `n` closest users(`neighbors`)
-* Calculates the weighted average of the `neighbors`'s grades within a selected class using the correlation index calculated above.
-* The result is the prediction.
-
-As you can see, it is pretty simple and the results aren't very good, but is really fast and may be useful if used in a hybrid system.
-
-### Usage
-
-```
-from data import unicamp
-from learning.nmf import NB_CF
-u = unicamp.load()
-model = NB_CF()
-active = [10, 5, 0, 0, 9, 8, 0, 0, 0, 0, 8, 0]
-model.fit(active, u.data)
-model.predict(0)
-```
