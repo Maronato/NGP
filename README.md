@@ -1,6 +1,10 @@
 # NGP
 Harvard's CS50 Final Project - Natural Grade Processing
 
+Using machine learning to predict students' grades!
+
+NGP uses various machine learning algorithms and techniques to predict students' grades based on their peers' and their own. This readme is a little shallow, so do check out the [website/blog](https://gradeprocessing.herokuapp.com) dedicated to this project if you want to see live examples, tutorials and data.
+
 # The website
 
 The project's main selling point is the website that offers in-depth information about the algorithms used and easy-to-use simulations and explanations.
